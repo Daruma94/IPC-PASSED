@@ -12,7 +12,3 @@
     "gambar": "1062739 61530.jpg"
   }
 }
-
-### Keunggulan Sistem ini:
-1. **Pencarian Fleksibel**: Pengguna bisa mengetik `"61171"` saja, atau `"62740"` saja, sistem akan memisahkannya menggunakan fungsi `.split(/\s+/)` dan mencocokkan kodenya, lalu menyajikan data `"Unit Pelat Baja Utama"`.
-2. **Path Otomatis**: Gambar secara otomatis mengarah ke `images/61171 61531 62239 62740 1061171 1062740.jpg` sehingga langsung sinkron dengan daftar file di screenshot repositori Anda.
