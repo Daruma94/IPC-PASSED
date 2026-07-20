@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian MID - MIM Manufacturing</title>
+    
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Lucide Icons untuk ikon pencarian dan input -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Menggunakan font Inter dari Google Fonts agar mirip dengan desain -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05), 
+                        0 0 40px rgba(255, 255, 255, 0.8) inset;
+        }
+
+        .btn-shadow {
+            box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Animasi muncul halus untuk hasil pencarian */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#e6f0fa] via-[#eff5fc] to-[#e2edf8] min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+    <div class="glass-card w-full max-w-4xl rounded-[3rem] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden">
+        
+        <!-- Bagian Logo MIM -->
+        <div class="flex flex-col items-center justify-center mb-10">
+            <div class="w-32 sm:w-36 h-2.5 sm:h-3 bg-[#203a85] rounded-sm mb-1.5"></div>
+            <div class="text-[#203a85] font-black text-6xl sm:text-7xl md:text-8xl leading-none tracking-tight">MIM</div>
+            <div class="bg-[#203a85] text-white text-[9px] sm:text-[10px] md:text-xs font-bold px-3 py-1.5 sm:py-2 mt-1.5 tracking-[0.25em] rounded-sm">
+                MANUFACTURING
+            </div>
+        </div>
+
+        <!-- Judul -->
+        <h1 class="text-[#1a2b6d] font-black text-2xl sm:text-3xl md:text-5xl mb-3 tracking-tight uppercase">
+            Quality Passed
+        </h1>
+        <p class="text-gray-500 text-sm md:text-lg mb-8 max-w-lg mx-auto leading-relaxed">
+            Masukkan kode MID untuk mengakses detail <br class="hidden sm:block"> spesifikasi dan gambar unit
+        </p>
+
+        <!-- Formulir Pencarian -->
+        <form id="searchForm" class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-2xl mx-auto">
+            <div class="relative w-full">
+                <i data-lucide="hard-drive" class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 sm:w-6 sm:h-6"></i>
+                <input 
+                    type="text" 
+                    id="midInput" 
+                    placeholder="Contoh: 80888" 
+                    class="w-full pl-12 sm:pl-14 pr-6 py-3.5 sm:py-4 rounded-2xl border border-gray-200 text-gray-700 text-base sm:text-lg focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-semibold placeholder-gray-400 bg-white"
+                    required
+                >
+            </div>
+            
+            <button 
+                type="submit" 
+                class="w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 bg-[#2b63d9] hover:bg-[#1e4eb8] active:bg-[#183f96] text-white rounded-2xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 sm:gap-3 btn-shadow transition-all whitespace-nowrap"
+            >
+                <i data-lucide="search" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                Cari
+            </button>
+        </form>
+
+        <!-- Bagian Riwayat Pencarian -->
+        <div class="mt-6 sm:mt-8 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+            <span class="text-[10px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase">
+                Riwayat:
+            </span>
+            <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
+                80888
+            </button>
+            <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
+                61895
+            </button>
+        </div>
+
+        <!-- Pesan Loading/Error -->
+        <div id="statusMessage" class="hidden mt-8 p-4 rounded-2xl text-sm sm:text-base font-medium transition-all">
+            <!-- Isi pesan via JS -->
+        </div>
+
+        <!-- Kontainer Hasil (Gambar & Spesifikasi) -->
+        <div id="resultContainer" class="hidden mt-8 text-left animate-fade-in">
+            <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-4 sm:p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100/50">
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <!-- Area Gambar -->
+                    <div class="w-full md:w-1/2">
+                        <div class="relative bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] shadow-inner flex items-center justify-center group">
+                            <img id="resultImg" src="" alt="Unit Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                    </div>
+                    
+                    <!-- Area Teks Detail -->
+                    <div class="w-full md:w-1/2 p-2">
+                        <div class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-black mb-3 tracking-wide uppercase">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Passed QC
+                        </div>
+                        <h3 class="text-3xl font-black text-[#1a2b6d] mb-1">MID: <span id="resultMid"></span></h3>
+                        <p class="text-gray-400 font-medium text-sm mb-4">Diproduksi oleh MIM Manufacturing</p>
+                        
+                        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Keterangan Spesifikasi</h4>
+                            <p class="text-gray-700 text-sm leading-relaxed" id="resultSpec">
+                                Spesifikasi unit akan ditampilkan di sini.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Logika Aplikasi -->
+    <script>
+        lucide.createIcons();
+
+        const searchForm = document.getElementById('searchForm');
+        const midInput = document.getElementById('midInput');
+        const statusMessage = document.getElementById('statusMessage');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultImg = document.getElementById('resultImg');
+        const resultMid = document.getElementById('resultMid');
+        const resultSpec = document.getElementById('resultSpec');
+        const historyBtns = document.querySelectorAll('.history-btn');
+
+        // Data dummy bawaan agar web langsung terlihat berfungsi setelah diupload
+        const dummyData = {
+            "80888": {
+                img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+                spec: "Unit Mesin Tipe Alpha-X. Kondisi komponen mekanik dan elektrikal 100% normal. Lolos uji tekanan dan suhu ekstrem."
+            },
+            "61895": {
+                img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80",
+                spec: "Komponen Transmisi Baja. Material solid, tidak ditemukan retakan rambut pada x-ray test. Siap untuk perakitan."
+            }
+        };
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const midValue = midInput.value.trim();
+            
+            if(!midValue) return;
+
+            // 1. Tampilkan status "Mencari..."
+            resultContainer.classList.add('hidden');
+            statusMessage.className = 'mt-8 p-4 rounded-2xl text-blue-800 bg-blue-50 border border-blue-100 font-medium animate-pulse text-sm sm:text-base';
+            statusMessage.innerHTML = `<i data-lucide="loader-2" class="inline w-4 h-4 mr-2 animate-spin"></i> Mencari gambar untuk MID: <b>${midValue}</b>...`;
+            statusMessage.classList.remove('hidden');
+            lucide.createIcons();
+
+            // Simulasi loading sebentar agar terasa seperti aplikasi sungguhan (0.8 detik)
+            setTimeout(() => {
+                // 2. Cek apakah ada di data dummy (untuk contoh)
+                if (dummyData[midValue]) {
+                    tampilkanHasil(midValue, dummyData[midValue].img, dummyData[midValue].spec);
+                } else {
+                    // 3. JIKA TIDAK ADA DI DUMMY: Kita coba panggil file gambar asli dari folder GitHub Anda
+                    // Asumsinya Anda menyimpan gambar di folder "images" dengan ekstensi .jpg (misal: images/12345.jpg)
+                    const imageUrl = `images/${midValue}.jpg`;
+                    const imgTest = new Image();
+                    
+                    imgTest.onload = function() {
+                        // Jika gambar ditemukan di folder
+                        tampilkanHasil(midValue, imageUrl, `Unit MID ${midValue} telah melewati pengecekan kualitas standar pabrik dan siap digunakan.`);
+                    };
+                    
+                    imgTest.onerror = function() {
+                        // Jika gambar gagal dimuat (file tidak ada)
+                        tampilkanError(midValue);
+                    };
+                    
+                    imgTest.src = imageUrl;
+                }
+            }, 800);
+        });
+
+        function tampilkanHasil(mid, imgUrl, specText) {
+            statusMessage.classList.add('hidden');
+            
+            // Isi data ke dalam HTML
+            resultMid.textContent = mid;
+            resultImg.src = imgUrl;
+            resultSpec.textContent = specText;
+            
+            // Tampilkan kontainer hasil
+            resultContainer.classList.remove('hidden');
+        }
+
+        function tampilkanError(mid) {
+            resultContainer.classList.add('hidden');
+            statusMessage.className = 'mt-8 p-4 rounded-2xl text-red-800 bg-red-50 border border-red-100 font-medium text-sm sm:text-base';
+            statusMessage.innerHTML = `<i data-lucide="alert-circle" class="inline w-4 h-4 mr-2 mb-0.5"></i> Data atau gambar untuk MID <b>${mid}</b> tidak ditemukan. Pastikan Anda telah mengupload file <b>${mid}.jpg</b> ke folder images.`;
+            lucide.createIcons();
+        }
+
+        // Fitur tombol riwayat
+        historyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                midInput.value = btn.textContent.trim();
+                searchForm.dispatchEvent(new Event('submit')); // Otomatis cari saat diklik
+            });
+        });
+    </script>
+</body>
+</html>
