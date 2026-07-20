@@ -1,39 +1,18 @@
 {
-  "1062739": "Bracket bagian kiri, telah lolos inspeksi dimensi.",
-  "61530": "Bracket bagian kiri, telah lolos inspeksi dimensi.",
-
-  "61170": "Housing Assy versi A, kualitas memenuhi standar.",
-  "61529": "Housing Assy versi A, kualitas memenuhi standar.",
-  "62237": "Housing Assy versi A, kualitas memenuhi standar.",
-  "62739": "Housing Assy versi A, kualitas memenuhi standar.",
-
-  "61171": "Upper Cover telah lolos pemeriksaan visual.",
-  "61531": "Upper Cover telah lolos pemeriksaan visual.",
-  "62239": "Upper Cover telah lolos pemeriksaan visual.",
-  "62740": "Upper Cover telah lolos pemeriksaan visual.",
-  "1061171": "Upper Cover telah lolos pemeriksaan visual.",
-  "1062740": "Upper Cover telah lolos pemeriksaan visual.",
-
-  "61172": "Produk memenuhi standar Quality Control.",
-
-  "61895": "Unit telah melalui pemeriksaan final QC.",
-  "63244": "Unit telah melalui pemeriksaan final QC.",
-
-  "62654": "Part siap digunakan pada proses produksi.",
-
-  "62748": "Visual OK dan dimensi sesuai drawing.",
-  "62749": "Visual OK dan dimensi sesuai drawing.",
-
-  "62750": "Lulus inspeksi kualitas.",
-  "62751": "Lulus inspeksi kualitas.",
-
-  "62787": "Produk sesuai standar MIM.",
-  "62788": "Produk sesuai standar MIM.",
-
-  "62984": "Produk lolos Quality Passed.",
-
-  "63073": "Produk telah diperiksa dan disetujui.",
-  "1063073": "Produk telah diperiksa dan disetujui.",
-
-  "63462": "Produk memenuhi seluruh spesifikasi."
+  "61171 61531 62239 62740 1061171 1062740": {
+    "nama": "Unit Pelat Baja Utama",
+    "tanggal": "20 Juli 2026",
+    "deskripsi": "Unit pelat baja utama dengan ketebalan standar presisi tinggi, lolos uji tekan beban struktur pabrikasi.",
+    "gambar": "61171 61531 62239 62740 1061171 1062740.jpg"
+  },
+  "1062739 61530": {
+    "nama": "Komponen Motor Hidrolik",
+    "tanggal": "18 Juli 2026",
+    "deskripsi": "Sistem katup hidrolik terintegrasi dengan seal anti kebocoran gas cair.",
+    "gambar": "1062739 61530.jpg"
+  }
 }
+
+### Keunggulan Sistem ini:
+1. **Pencarian Fleksibel**: Pengguna bisa mengetik `"61171"` saja, atau `"62740"` saja, sistem akan memisahkannya menggunakan fungsi `.split(/\s+/)` dan mencocokkan kodenya, lalu menyajikan data `"Unit Pelat Baja Utama"`.
+2. **Path Otomatis**: Gambar secara otomatis mengarah ke `images/61171 61531 62239 62740 1061171 1062740.jpg` sehingga langsung sinkron dengan daftar file di screenshot repositori Anda.
