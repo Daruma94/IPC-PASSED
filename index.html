@@ -16,7 +16,6 @@
         }
         .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); }
         
-        /* Animasi Fade In */
         .fade-in {
             animation: fadeIn 0.5s ease-out forwards;
             opacity: 0;
@@ -26,7 +25,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Efek Bingkai Kaca (Glassmorphism) pada Gambar */
         .glass-frame {
             background: rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
@@ -50,13 +48,11 @@
             background-color: rgba(255, 255, 255, 0.5);
         }
 
-        /* Modal Image Viewer */
         #image-modal {
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
 
-        /* Custom Scrollbar untuk riwayat */
         .history-scroll::-webkit-scrollbar { height: 4px; }
         .history-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .history-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -66,14 +62,10 @@
 
     <div class="bg-white rounded-[32px] card-shadow w-full max-w-[420px] p-8 transition-all duration-300 relative" id="main-card">
         
-        <!-- BAGIAN HEADER LOGO -->
         <div class="flex flex-col items-center mt-2">
             <div class="inline-flex flex-col items-center">
-                <!-- Garis -->
                 <div class="w-full h-[5px] bg-[#1a337e] rounded-full mb-2"></div>
-                <!-- Logo -->
                 <h1 class="text-6xl font-black text-[#1a337e] tracking-tighter leading-none">MIM</h1>
-                <!-- Manufacturing -->
                 <div class="mt-2 w-full bg-[#1a337e] text-white text-center text-[9px] font-bold py-[3px] tracking-[0.25em] rounded-sm">
                     MANUFACTURING
                 </div>
@@ -85,14 +77,12 @@
             <p class="text-gray-500 text-[13px] leading-relaxed px-2">Masukkan kode MID untuk mengakses spesifikasi unit</p>
         </div>
 
-        <!-- FORM PENCARIAN -->
         <form id="search-form" class="space-y-4">
             <div class="relative flex items-center">
                 <i class="fa-solid fa-inbox absolute left-4 text-gray-400"></i>
                 <input type="text" id="mid-input" required autocomplete="off" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#1a337e] text-sm text-gray-700 transition-all font-medium uppercase" placeholder="Masukkan Nomor Kode (Contoh: 61171)">
             </div>
             
-            <!-- Notifikasi Error (Custom Alert Card) -->
             <div id="error-card" class="hidden bg-red-50 border border-red-200 text-red-600 rounded-xl p-3.5 text-sm flex items-start gap-3">
                 <i class="fa-solid fa-circle-exclamation mt-0.5 text-red-500 text-base"></i>
                 <div>
@@ -107,21 +97,17 @@
             </button>
         </form>
 
-        <!-- RIWAYAT PENCARIAN -->
         <div id="history-section" class="mt-6 hidden">
             <p class="text-[11px] text-gray-400 font-semibold mb-2 uppercase tracking-wider">Riwayat Terakhir</p>
             <div class="flex gap-2 overflow-x-auto history-scroll pb-2" id="history-list">
-                <!-- Chip riwayat diletakkan di sini secara dinamis -->
             </div>
         </div>
 
-        <!-- HASIL PENCARIAN (Awalnya tersembunyi) -->
         <div id="result-section" class="hidden mt-6 pt-6 border-t border-gray-100">
             <div class="text-center mb-4">
                 <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-check-circle mr-1"></i> VALIDATED</span>
             </div>
             
-            <!-- Gambar dengan efek kaca -->
             <div class="glass-frame mb-5" onclick="openModal()">
                 <img id="res-image" src="" alt="Unit Image" onerror="handleImageError(this)">
                 <div class="text-center mt-2 text-[10px] text-gray-500 font-medium">
@@ -129,7 +115,6 @@
                 </div>
             </div>
 
-            <!-- Data Spesifikasi -->
             <div class="space-y-3">
                 <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
                     <p class="text-[11px] text-gray-400 font-semibold mb-0.5">KODE PENCARIAN (MID)</p>
@@ -138,19 +123,16 @@
                 
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                        <!-- Disesuaikan dengan atribut "deskripsi" pada JSON -->
                         <p class="text-[11px] text-gray-400 font-semibold mb-0.5">DESKRIPSI PRODUK</p>
                         <p id="res-name" class="text-[13px] font-bold text-gray-800 truncate" title="">-</p>
                     </div>
                     <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                        <!-- Disesuaikan dengan atribut "tdk" pada JSON -->
                         <p class="text-[11px] text-gray-400 font-semibold mb-0.5">NOMOR TDK</p>
                         <p id="res-date" class="text-[13px] font-bold text-gray-800 truncate" title="">-</p>
                     </div>
                 </div>
 
                 <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
-                    <!-- Disesuaikan dengan atribut "notasi" pada JSON -->
                     <p class="text-[11px] text-[#1a337e] font-bold mb-1">NOTASI SUSUNAN</p>
                     <p id="res-desc" class="text-[13px] text-gray-600 leading-relaxed text-justify">-</p>
                 </div>
@@ -158,7 +140,6 @@
         </div>
     </div>
 
-    <!-- MODAL GAMBAR FULLSCREEN -->
     <div id="image-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/80 transition-opacity opacity-0">
         <div class="relative w-full max-w-2xl bg-white rounded-2xl p-2 shadow-2xl transform scale-95 transition-transform" id="modal-content">
             <button onclick="closeModal()" class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-colors">
@@ -173,7 +154,6 @@
 
         document.getElementById('search-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const inputVal = document.getElementById('mid-input').value.trim();
             if(!inputVal) return;
 
@@ -182,106 +162,75 @@
             setLoading(true);
 
             try {
-                // Membaca file deskripsi.json dari root repository Anda
                 const response = await fetch('deskripsi.json');
-                
-                if (!response.ok) {
-                    throw new Error("Gagal mengambil file deskripsi.json");
-                }
+                if (!response.ok) throw new Error("Gagal mengambil file deskripsi.json");
                 
                 const jsonData = await response.json();
-                
-                // Mendapatkan daftar records sesuai format output dari Pallet Database Builder
                 const records = jsonData.records || [];
                 
-                let matchedData = null;
-
-                // 1. Mencari object record yang mid-nya cocok
-                matchedData = records.find(item => {
+                const matchedData = records.find(item => {
                     if (!item.mid) return false;
-                    // Memisahkan MID berdasarkan spasi atau koma jika suatu TDK punya banyak MID
                     const subCodes = item.mid.split(/[\s,]+/); 
                     return subCodes.includes(inputVal);
                 });
 
                 setTimeout(() => {
                     setLoading(false);
-                    
                     if (matchedData) {
-                        // Menampilkan hasil pencarian yang cocok
                         showResult(matchedData, inputVal);
                         addToHistory(inputVal);
                     } else {
-                        showError(`Kode MID <strong>${inputVal}</strong> tidak terdaftar atau tidak ditemukan dalam berkas deskripsi.json.`);
+                        showError(`Kode MID <strong>${inputVal}</strong> tidak terdaftar.`);
                     }
                 }, 400);
-
             } catch (error) {
                 setLoading(false);
-                showError("Gagal mengakses database deskripsi.json. Pastikan file diletakkan di folder utama repositori GitHub Anda.");
+                showError("Gagal mengakses database. Pastikan file deskripsi.json tersedia.");
                 console.error(error);
             }
         });
 
         function showResult(data, searchInput) {
-            // Menampilkan data berdasarkan mapping format export TDK JSON
             document.getElementById('res-id').innerText = data.mid || searchInput;
+            document.getElementById('res-name').innerText = data.deskripsi || '-';
+            document.getElementById('res-date').innerText = data.tdk || '-';
+            document.getElementById('res-desc').innerText = data.notasi || 'Keterangan tidak tersedia.';
             
-            // Nama / Deskripsi produk
-            const productName = data.deskripsi || '-';
-            document.getElementById('res-name').innerText = productName;
-            document.getElementById('res-name').title = productName;
+            // --- LOGIKA GAMBAR TAHAN BANTING ---
+            let fileName = data.img || `${searchInput}`;
             
-            // Nomor TDK
-            const tdkNumber = data.tdk || '-';
-            document.getElementById('res-date').innerText = tdkNumber;
-            document.getElementById('res-date').title = tdkNumber;
+            // Memastikan selalu memiliki ekstensi .png
+            if (!fileName.toLowerCase().endsWith('.png')) {
+                fileName += '.png';
+            }
             
-            // Notasi susunan
-            document.getElementById('res-desc').innerText = data.notasi || 'Keterangan susunan pallet tidak tersedia.';
-            
-            // --- PENANGANAN GAMBAR ---
-            // Mengambil nama berkas gambar. Format JSON TDK menggunakan key "img"
-            let fileName = data.img || `${searchInput}.png`;
-            
-            // Merangkai URL gambar ke dalam folder "images/" di repositori Anda
+            // Path folder images di GitHub
             let imagePath = `images/${fileName}`;
 
             const imgEl = document.getElementById('res-image');
             const modalImgEl = document.getElementById('modal-image');
+            
             imgEl.src = imagePath;
             modalImgEl.src = imagePath;
 
-            // Memunculkan hasil dengan transisi fade-in
             const resultSection = document.getElementById('result-section');
             resultSection.classList.remove('hidden', 'fade-in');
-            void resultSection.offsetWidth; // Memicu reflow browser agar animasi berjalan ulang
+            void resultSection.offsetWidth;
             resultSection.classList.add('fade-in');
         }
 
-        // Jalankan fungsi ini jika gambar gagal dimuat (misal belum diexport / salah path)
         function handleImageError(image) {
             image.onerror = null; 
-            // Menggunakan placeholder bila gambar tidak ada
             image.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia"; 
         }
 
-        function hideResult() {
-            document.getElementById('result-section').classList.add('hidden');
-        }
-
+        function hideResult() { document.getElementById('result-section').classList.add('hidden'); }
         function showError(msg) {
             const errorCard = document.getElementById('error-card');
             document.getElementById('error-message').innerHTML = msg;
-            
-            errorCard.classList.remove('hidden', 'fade-in');
-            void errorCard.offsetWidth;
-            errorCard.classList.add('fade-in');
+            errorCard.classList.remove('hidden');
         }
-
-        function hideError() {
-            document.getElementById('error-card').classList.add('hidden');
-        }
+        function hideError() { document.getElementById('error-card').classList.add('hidden'); }
 
         function setLoading(isLoading) {
             const btnIcon = document.getElementById('btn-icon');
@@ -301,11 +250,8 @@
             }
         }
 
-        // Manajemen Riwayat Pencarian
         function addToHistory(mid) {
-            searchHistory = searchHistory.filter(item => item !== mid);
-            searchHistory.unshift(mid);
-            if (searchHistory.length > 4) searchHistory.pop(); // Batas 4 item riwayat agar rapi
+            searchHistory = [mid, ...searchHistory.filter(item => item !== mid)].slice(0, 4);
             renderHistory();
         }
 
@@ -326,17 +272,14 @@
                 chip.type = 'button';
                 chip.className = 'flex-shrink-0 bg-blue-50 text-[#1a337e] border border-blue-100 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors whitespace-nowrap';
                 chip.innerHTML = `<i class="fa-solid fa-clock-rotate-left mr-1 opacity-70"></i> ${mid}`;
-                
                 chip.onclick = () => {
                     document.getElementById('mid-input').value = mid;
                     document.getElementById('submit-btn').click();
                 };
-
                 historyList.appendChild(chip);
             });
         }
 
-        // Manajemen Modal Gambar Fullscreen
         const modal = document.getElementById('image-modal');
         const modalContent = document.getElementById('modal-content');
 
@@ -353,16 +296,10 @@
             modal.classList.add('opacity-0');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
+        modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
     </script>
 </body>
 </html>
