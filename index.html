@@ -54,15 +54,15 @@
     <!-- Container Utama -->
     <div class="glass-card w-full max-w-4xl rounded-[3rem] p-6 sm:p-12 md:p-16 text-center relative overflow-hidden my-4">
         
-        <!-- Tombol Pengaturan GitHub di Pojok Atas -->
-        <button id="toggleSettingsBtn" class="absolute top-6 right-6 text-gray-400 hover:text-[#203a85] transition-colors p-2 rounded-full hover:bg-gray-100/80" title="Pengaturan Folder GitHub">
+        <!-- Tombol Pengaturan di Pojok Atas -->
+        <button id="toggleSettingsBtn" class="absolute top-6 right-6 text-gray-400 hover:text-[#203a85] transition-colors p-2 rounded-full hover:bg-gray-100/80" title="Pengaturan Sumber Gambar">
             <i data-lucide="settings" class="w-6 h-6"></i>
         </button>
 
-        <!-- Bagian Logo MIM (Lebar garis atas, teks, dan kotak bawah diselaraskan sempurna) -->
+        <!-- Bagian Logo MIM -->
         <div class="flex flex-col items-center justify-center mb-8">
             <div class="inline-flex flex-col items-stretch w-fit">
-                <!-- Garis atas (Lebar otomatis mengikuti teks MIM di bawahnya) -->
+                <!-- Garis atas -->
                 <div class="h-2.5 sm:h-3 bg-[#203a85] rounded-sm mb-2 w-full"></div>
                 
                 <!-- Teks MIM -->
@@ -70,7 +70,7 @@
                     MIM
                 </div>
                 
-                <!-- Kotak bawah MANUFACTURING (Lebar otomatis mengikuti teks MIM) -->
+                <!-- Kotak bawah MANUFACTURING -->
                 <div class="bg-[#203a85] text-white text-[9px] sm:text-[10px] md:text-xs font-bold py-1.5 sm:py-2 mt-2 tracking-[0.25em] rounded-sm text-center uppercase pl-[0.25em]">
                     MANUFACTURING
                 </div>
@@ -82,42 +82,68 @@
             Quality Passed
         </h1>
         <p class="text-gray-500 text-sm md:text-lg mb-6 max-w-lg mx-auto leading-relaxed">
-            Masukkan kode MID untuk mengakses detail <br class="hidden sm:block"> spesifikasi dan gambar unit dari GitHub
+            Masukkan kode MID untuk mengakses spesifikasi <br class="hidden sm:block"> dan gambar unit secara instan
         </p>
 
-        <!-- PANEL PENGATURAN GITHUB (Collapsible) -->
-        <div id="githubSettingsPanel" class="hidden mb-8 p-6 bg-gray-50/80 border border-gray-200/60 rounded-3xl text-left animate-fade-in max-w-2xl mx-auto">
-            <div class="flex items-center justify-between mb-4 border-b border-gray-200 pb-2">
+        <!-- PANEL CONFIGURASI (Collapsible) -->
+        <div id="settingsPanel" class="hidden mb-8 p-6 bg-gray-50/90 border border-gray-200/60 rounded-3xl text-left animate-fade-in max-w-2xl mx-auto">
+            <div class="flex items-center justify-between mb-4 border-b border-gray-200 pb-3">
                 <h3 class="font-bold text-[#1a2b6d] flex items-center gap-2">
-                    <i data-lucide="github" class="w-5 h-5"></i> Konfigurasi Folder GitHub
+                    <i data-lucide="sliders" class="w-5 h-5"></i> Pengaturan Sumber Gambar
                 </h3>
-                <span class="text-[10px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full">Simpan Otomatis</span>
+                <span class="text-[10px] bg-blue-100 text-blue-800 font-bold px-2.5 py-0.5 rounded-full">Tersimpan Otomatis</span>
             </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">GitHub Owner / Username</label>
-                    <input type="text" id="gitOwner" placeholder="Contoh: mim-manufacturing" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Repository Name</label>
-                    <input type="text" id="gitRepo" placeholder="Contoh: qc-images" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Folder Path (Di dalam Repo)</label>
-                    <input type="text" id="gitPath" placeholder="Contoh: images (kosongkan jika di root)" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Branch Name</label>
-                    <input type="text" id="gitBranch" placeholder="main atau master" value="main" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700">
-                </div>
-            </div>
-            
-            <div class="mt-4 flex flex-col sm:flex-row gap-2 justify-between items-center text-xs text-gray-500 pt-2 border-t border-gray-100">
-                <p>Status Sinkronisasi: <span id="syncStatus" class="font-bold text-amber-600">Menggunakan Data Cadangan (Offline Mode)</span></p>
-                <button type="button" id="btnSyncRepo" class="px-3 py-1.5 bg-[#203a85] hover:bg-[#1a2b6d] text-white font-bold rounded-lg transition-colors flex items-center gap-1">
-                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Hubungkan & Tarik Data File
+
+            <!-- Tab Selector Mode -->
+            <div class="flex bg-gray-200/60 p-1 rounded-xl mb-4">
+                <button type="button" id="tabLocal" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white text-[#203a85] shadow-sm">
+                    Mode 1: Folder Lokal (images/)
                 </button>
+                <button type="button" id="tabGithub" class="flex-1 py-2 text-xs sm:text-sm font-semibold rounded-lg text-gray-500 hover:text-gray-700 transition-all">
+                    Mode 2: Folder GitHub
+                </button>
+            </div>
+            
+            <!-- KONTEN TAB LOCAL -->
+            <div id="localConfigContent" class="space-y-3">
+                <p class="text-xs text-gray-500 leading-relaxed">
+                    Masukkan daftar nama file gambar yang berada di dalam folder <b>images/</b> Anda di bawah ini (pisahkan dengan baris baru atau koma). Sistem akan memproses dan mencocokkan MID yang Anda cari dengan pecahan nama file tersebut.
+                </p>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Daftar File Gambar Lokal Anda</label>
+                    <textarea id="localFileListArea" rows="4" class="w-full px-3 py-2 text-sm font-mono rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 text-gray-700 bg-white" placeholder="Contoh:&#10;61171 61531 62239 62740 1061171 1062740.jpg&#10;80888 80889.jpg"></textarea>
+                </div>
+            </div>
+
+            <!-- KONTEN TAB GITHUB -->
+            <div id="githubConfigContent" class="hidden space-y-4">
+                <p class="text-xs text-gray-500 leading-relaxed">
+                    Sistem akan membaca daftar file secara otomatis menggunakan API GitHub berdasarkan koordinat repository Anda di bawah ini.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">GitHub Owner / Username</label>
+                        <input type="text" id="gitOwner" placeholder="Contoh: mim-manufacturing" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Repository Name</label>
+                        <input type="text" id="gitRepo" placeholder="Contoh: qc-images" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Folder Path di Repo</label>
+                        <input type="text" id="gitPath" placeholder="Contoh: images" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Branch Name</label>
+                        <input type="text" id="gitBranch" placeholder="main atau master" value="main" class="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 font-semibold text-gray-700 bg-white">
+                    </div>
+                </div>
+                <div class="pt-2 border-t border-gray-100 flex flex-col sm:flex-row gap-2 justify-between items-center text-xs">
+                    <p class="text-gray-500">Status Sinkronisasi: <span id="syncStatus" class="font-bold text-gray-600">Belum Terhubung</span></p>
+                    <button type="button" id="btnSyncRepo" class="px-3 py-1.5 bg-[#203a85] hover:bg-[#1a2b6d] text-white font-bold rounded-lg transition-colors flex items-center gap-1">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Ambil Daftar File Dari GitHub
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -128,7 +154,7 @@
                 <input 
                     type="text" 
                     id="midInput" 
-                    placeholder="Masukkan MID (Contoh: 61531, 62239, 80888)" 
+                    placeholder="Masukkan salah satu MID (Contoh: 61531 atau 62239)" 
                     class="w-full pl-12 sm:pl-14 pr-6 py-3.5 sm:py-4 rounded-2xl border border-gray-200 text-gray-700 text-base sm:text-lg focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-semibold placeholder-gray-400 bg-white"
                     required
                 >
@@ -143,10 +169,10 @@
             </button>
         </form>
 
-        <!-- Bagian Riwayat Pencarian / Contoh Demo -->
+        <!-- Bagian Contoh Cepat MID -->
         <div class="mt-6 sm:mt-8 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
             <span class="text-[10px] sm:text-xs font-bold text-gray-400 tracking-widest uppercase">
-                Uji Coba MID:
+                Uji Coba Cepat:
             </span>
             <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
                 61531
@@ -155,27 +181,27 @@
                 62239
             </button>
             <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
-                80888
+                1062740
             </button>
             <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
-                1062740
+                61171
             </button>
         </div>
 
         <!-- Pesan Loading/Error -->
         <div id="statusMessage" class="hidden mt-8 p-4 rounded-2xl text-sm sm:text-base font-medium transition-all">
-            <!-- Isi pesan via JS -->
+            <!-- Pesan dinamis via JS -->
         </div>
 
-        <!-- Kontainer Hasil (Gambar & Spesifikasi) -->
+        <!-- Kontainer Hasil -->
         <div id="resultContainer" class="hidden mt-8 text-left animate-fade-in">
             <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-4 sm:p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100/50">
                 <div class="flex flex-col md:flex-row gap-6 items-center">
                     
-                    <!-- Area Gambar dengan Efek Hover & Petunjuk Zoom -->
+                    <!-- Area Gambar -->
                     <div class="w-full md:w-1/2">
                         <div id="imageTrigger" class="relative bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] shadow-inner flex items-center justify-center group cursor-zoom-in">
-                            <img id="resultImg" src="" alt="Unit Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img id="resultImg" src="" alt="Gambar Unit dari folder images/" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             
                             <!-- Hamparan Petunjuk Hover -->
                             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center duration-300">
@@ -192,19 +218,19 @@
                             <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Passed QC
                         </div>
                         <h3 class="text-3xl font-black text-[#1a2b6d] mb-1">MID: <span id="resultMid"></span></h3>
-                        <p class="text-gray-400 font-medium text-sm mb-4">Diproduksi oleh MIM Manufacturing</p>
+                        <p class="text-gray-400 font-medium text-sm mb-4">MIM Manufacturing - Kontrol Kualitas</p>
                         
                         <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Informasi File & Spesifikasi</h4>
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Informasi File & Lokasi</h4>
                             
-                            <!-- Detail Nama File Terdeteksi -->
+                            <!-- Nama File yang Terdeteksi -->
                             <div class="mb-3 text-xs text-gray-500">
-                                <span class="font-semibold block text-gray-400 uppercase tracking-wide">Nama File Terdeteksi:</span>
-                                <span id="detectedFilename" class="font-mono bg-gray-100 px-2 py-1 rounded inline-block mt-1 text-gray-700 break-all"></span>
+                                <span class="font-semibold block text-gray-400 uppercase tracking-wide text-[10px]">Nama File di Folder images/:</span>
+                                <span id="detectedFilename" class="font-mono bg-blue-50 text-[#1a2b6d] px-2 py-1 rounded inline-block mt-1 border border-blue-100/50 font-semibold break-all"></span>
                             </div>
 
                             <p class="text-gray-700 text-sm leading-relaxed" id="resultSpec">
-                                Spesifikasi unit akan ditampilkan di sini.
+                                Spesifikasi unit terdeteksi otomatis dari nama file gambar.
                             </p>
                         </div>
                     </div>
@@ -216,13 +242,11 @@
 
     <!-- Modal Lightbox Pratinjau Gambar Berbingkai Glassmorphism -->
     <div id="imageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-[#111827]/70 backdrop-blur-md transition-opacity duration-300">
-        <!-- Bingkai Glassmorphism -->
         <div class="relative max-w-4xl w-full bg-white/10 backdrop-blur-xl p-3 sm:p-4 rounded-[2.5rem] border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] animate-zoom-in">
             <!-- Tombol Tutup Modern -->
             <button id="closeModal" class="absolute -top-14 right-2 text-white hover:text-gray-200 transition-colors bg-white/10 hover:bg-white/20 p-2.5 rounded-full backdrop-blur-sm border border-white/20">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            <!-- Gambar Modal -->
             <img id="modalImg" src="" alt="Pratinjau Unit" class="w-full max-h-[75vh] object-contain rounded-2xl">
         </div>
     </div>
@@ -249,71 +273,110 @@
         const closeModal = document.getElementById('closeModal');
         const modalImg = document.getElementById('modalImg');
 
-        // Panel Pengaturan GitHub
+        // Panel Pengaturan
         const toggleSettingsBtn = document.getElementById('toggleSettingsBtn');
-        const githubSettingsPanel = document.getElementById('githubSettingsPanel');
+        const settingsPanel = document.getElementById('settingsPanel');
         const btnSyncRepo = document.getElementById('btnSyncRepo');
         const syncStatus = document.getElementById('syncStatus');
         
+        // Element Tabs
+        const tabLocal = document.getElementById('tabLocal');
+        const tabGithub = document.getElementById('tabGithub');
+        const localConfigContent = document.getElementById('localConfigContent');
+        const githubConfigContent = document.getElementById('githubConfigContent');
+        
+        // Element Inputs
+        const localFileListArea = document.getElementById('localFileListArea');
         const gitOwnerInput = document.getElementById('gitOwner');
         const gitRepoInput = document.getElementById('gitRepo');
         const gitPathInput = document.getElementById('gitPath');
         const gitBranchInput = document.getElementById('gitBranch');
 
-        // Data file cadangan/mock default (jika user belum menghubungkan repo atau sedang offline)
-        // Format nama file menggunakan spasi sebagai pemisah antar MID seperti yang Anda contohkan
-        const defaultMockFiles = [
+        // Konfigurasi Default & State Aplikasi
+        let activeMode = 'local'; // 'local' atau 'github'
+        let githubFileList = [];  // Daftar file yang ditarik dari Github
+        
+        // Contoh awal nama file Anda (langsung tersimpan sebagai default)
+        const defaultLocalFiles = [
             "61171 61531 62239 62740 1061171 1062740.jpg",
-            "80888 80889 80890.jpg",
-            "61895 61896.jpg"
+            "80888 80889 80890.jpg"
         ];
 
-        // Memori Penyimpanan List File
-        let fetchedFileList = [...defaultMockFiles];
-
-        // Memuat Pengaturan dari LocalStorage (jika ada) agar tidak hilang saat refresh
+        // Memuat Pengaturan dari LocalStorage agar awet saat direfresh
         function loadSettings() {
-            const savedSettings = localStorage.getItem('mim_github_config');
-            if (savedSettings) {
-                const config = JSON.parse(savedSettings);
-                gitOwnerInput.value = config.owner || '';
-                gitRepoInput.value = config.repo || '';
-                gitPathInput.value = config.path || '';
-                gitBranchInput.value = config.branch || 'main';
-                
-                // Jika ada konfigurasi tersimpan, coba sinkronisasi otomatis
-                fetchGitHubFiles();
+            const savedConfig = localStorage.getItem('mim_app_configuration');
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                activeMode = config.activeMode || 'local';
+                localFileListArea.value = config.localFiles || defaultLocalFiles.join('\n');
+                gitOwnerInput.value = config.gitOwner || '';
+                gitRepoInput.value = config.gitRepo || '';
+                gitPathInput.value = config.gitPath || 'images';
+                gitBranchInput.value = config.gitBranch || 'main';
+                githubFileList = config.githubFileList || [];
             } else {
-                // Default placeholder visual
-                gitOwnerInput.value = "mim-manufacturing";
-                gitRepoInput.value = "qc-images";
+                // Set awal jika baru pertama kali dibuka
+                localFileListArea.value = defaultLocalFiles.join('\n');
+                gitOwnerInput.value = "";
+                gitRepoInput.value = "";
                 gitPathInput.value = "images";
                 gitBranchInput.value = "main";
             }
+            updateTabUI();
         }
 
-        // Menyimpan Pengaturan secara Otomatis
+        // Menyimpan Pengaturan ke LocalStorage secara Otomatis
         function saveSettings() {
             const config = {
-                owner: gitOwnerInput.value.trim(),
-                repo: gitRepoInput.value.trim(),
-                path: gitPathInput.value.trim(),
-                branch: gitBranchInput.value.trim() || 'main'
+                activeMode: activeMode,
+                localFiles: localFileListArea.value,
+                gitOwner: gitOwnerInput.value.trim(),
+                gitRepo: gitRepoInput.value.trim(),
+                gitPath: gitPathInput.value.trim(),
+                gitBranch: gitBranchInput.value.trim(),
+                githubFileList: githubFileList
             };
-            localStorage.setItem('mim_github_config', JSON.stringify(config));
+            localStorage.setItem('mim_app_configuration', JSON.stringify(config));
         }
 
-        // Input Listener untuk simpan otomatis
-        [gitOwnerInput, gitRepoInput, gitPathInput, gitBranchInput].forEach(input => {
-            input.addEventListener('input', saveSettings);
+        // Event Listener untuk Auto Save
+        [localFileListArea, gitOwnerInput, gitRepoInput, gitPathInput, gitBranchInput].forEach(elem => {
+            elem.addEventListener('input', saveSettings);
         });
 
-        // Toggle Panel Pengaturan
+        // Kontrol Tab Interface
+        tabLocal.addEventListener('click', () => {
+            activeMode = 'local';
+            updateTabUI();
+            saveSettings();
+        });
+
+        tabGithub.addEventListener('click', () => {
+            activeMode = 'github';
+            updateTabUI();
+            saveSettings();
+        });
+
+        function updateTabUI() {
+            if (activeMode === 'local') {
+                tabLocal.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white text-[#203a85] shadow-sm";
+                tabGithub.className = "flex-1 py-2 text-xs sm:text-sm font-semibold rounded-lg text-gray-500 hover:text-gray-700 transition-all";
+                localConfigContent.classList.remove('hidden');
+                githubConfigContent.classList.add('hidden');
+            } else {
+                tabGithub.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white text-[#203a85] shadow-sm";
+                tabLocal.className = "flex-1 py-2 text-xs sm:text-sm font-semibold rounded-lg text-gray-500 hover:text-gray-700 transition-all";
+                githubConfigContent.classList.remove('hidden');
+                localConfigContent.classList.add('hidden');
+            }
+        }
+
+        // Toggle Panel Pengaturan saat ikon gir diklik
         toggleSettingsBtn.addEventListener('click', () => {
-            githubSettingsPanel.classList.toggle('hidden');
+            settingsPanel.classList.toggle('hidden');
         });
 
-        // Mengambil daftar file aktual dari API GitHub
+        // Pengambilan data menggunakan API GitHub
         async function fetchGitHubFiles() {
             const owner = gitOwnerInput.value.trim();
             const repo = gitRepoInput.value.trim();
@@ -322,101 +385,103 @@
 
             if (!owner || !repo) {
                 syncStatus.className = "font-bold text-amber-600";
-                syncStatus.textContent = "Owner/Repo kosong. Menggunakan data simulasi default.";
-                fetchedFileList = [...defaultMockFiles];
+                syncStatus.textContent = "Data Owner atau Repo kosong.";
                 return;
             }
 
             syncStatus.className = "font-bold text-blue-600";
-            syncStatus.textContent = "Menghubungkan ke GitHub...";
+            syncStatus.textContent = "Sedang menghubungkan ke GitHub...";
 
             try {
-                // Memanggil GitHub Contents API
                 const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
                 const response = await fetch(url);
                 
                 if (!response.ok) {
-                    throw new Error(`Gagal mengambil data (${response.status})`);
+                    throw new Error(`Folder tidak ditemukan (${response.status})`);
                 }
 
                 const data = await response.json();
                 
-                // Filter hanya file bertipe gambar (.jpg, .jpeg, .png, .webp)
                 if (Array.isArray(data)) {
                     const files = data
-                        .filter(item => item.type === 'file' && /\.(jpg|jpeg|png|webp)$/i.test(item.name))
+                        .filter(item => item.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(item.name))
                         .map(item => item.name);
 
                     if (files.length > 0) {
-                        fetchedFileList = files;
+                        githubFileList = files;
                         syncStatus.className = "font-bold text-emerald-600";
-                        syncStatus.textContent = `Terhubung! Berhasil memuat ${files.length} file gambar.`;
+                        syncStatus.textContent = `Berhasil menyinkronkan ${files.length} gambar!`;
+                        saveSettings();
                     } else {
-                        throw new Error("Folder ditemukan, tetapi tidak ada file gambar.");
+                        throw new Error("Folder kosong atau tidak berisi file gambar.");
                     }
                 } else {
-                    throw new Error("Format respon API tidak valid.");
+                    throw new Error("Respon GitHub tidak valid.");
                 }
-
             } catch (error) {
-                console.error("GitHub Fetch Error:", error);
+                console.error(error);
                 syncStatus.className = "font-bold text-red-600";
-                syncStatus.textContent = `Gagal: ${error.message}. Menggunakan data cadangan.`;
-                // Kembalikan ke data cadangan default agar aplikasi tetap dapat dicoba
-                fetchedFileList = [...defaultMockFiles];
+                syncStatus.textContent = `Gagal: ${error.message}`;
             }
         }
 
         btnSyncRepo.addEventListener('click', async () => {
-            saveSettings();
             btnSyncRepo.disabled = true;
-            btnSyncRepo.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Menyinkronkan...`;
+            btnSyncRepo.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Memuat...`;
             lucide.createIcons();
             
             await fetchGitHubFiles();
             
             btnSyncRepo.disabled = false;
-            btnSyncRepo.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Hubungkan & Tarik Data File`;
+            btnSyncRepo.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Ambil Daftar File Dari GitHub`;
             lucide.createIcons();
         });
 
-        /* --- Logika Pencarian MID Pintar --- */
+        /* --- Logika Pencarian MID Pintar & Penentuan Folder --- */
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const searchedMid = midInput.value.trim();
             
             if(!searchedMid) return;
 
-            // Tampilkan status "Mencari..."
+            // Efek Loading Transisi
             resultContainer.classList.add('hidden');
-            statusMessage.className = 'mt-8 p-4 rounded-2xl text-blue-800 bg-blue-50 border border-blue-100 font-medium animate-pulse text-sm sm:text-base';
-            statusMessage.innerHTML = `<i data-lucide="loader-2" class="inline w-4 h-4 mr-2 animate-spin"></i> Mencari gambar untuk MID: <b>${searchedMid}</b>...`;
+            statusMessage.className = 'mt-8 p-4 rounded-2xl text-blue-800 bg-blue-50 border border-blue-100 font-medium animate-pulse text-sm sm:text-base text-left';
+            statusMessage.innerHTML = `<i data-lucide="loader-2" class="inline w-4 h-4 mr-2 animate-spin"></i> Mencari kecocokan untuk MID <b>${searchedMid}</b>...`;
             statusMessage.classList.remove('hidden');
             lucide.createIcons();
 
-            // Simulasi delay kosmetik (0.5 detik) agar transisi terasa nyata
             setTimeout(() => {
+                let fileListToSearch = [];
                 
+                // Tentukan file list berdasarkan mode aktif
+                if (activeMode === 'local') {
+                    // Pecah input teks area baris demi baris dan hilangkan baris kosong
+                    fileListToSearch = localFileListArea.value
+                        .split(/[\n,]+/)
+                        .map(line => line.trim())
+                        .filter(line => line.length > 0);
+                } else {
+                    fileListToSearch = githubFileList;
+                }
+
                 let matchedFilename = null;
 
-                // Loop mencari di memori list file (fetchedFileList)
-                for (const filename of fetchedFileList) {
-                    // Ambil nama file tanpa ekstensi (misal: "61171 61531 62239" dari "61171 61531 62239.jpg")
+                // Tahap 1: Pencarian Pencocokan Persis (Exact Match)
+                for (const filename of fileListToSearch) {
                     const nameWithoutExtension = filename.substring(0, filename.lastIndexOf('.')) || filename;
-                    
-                    // Split nama file berdasarkan spasi atau karakter pemisah umum (spasi, strip, underscore)
-                    const midsInFile = nameWithoutExtension.split(/[\s_\-]+/);
+                    // Pecah nama file berdasarkan spasi, strip atau underscore
+                    const segments = nameWithoutExtension.split(/[\s_\-]+/);
 
-                    // Cek apakah ada kecocokan persis (Exact Match)
-                    if (midsInFile.includes(searchedMid)) {
+                    if (segments.includes(searchedMid)) {
                         matchedFilename = filename;
                         break;
                     }
                 }
 
-                // Jika tidak ketemu dengan exact match, coba dengan pencarian parsial (.includes)
+                // Tahap 2: Jika exact match tidak ketemu, coba pencarian parsial (.includes)
                 if (!matchedFilename) {
-                    for (const filename of fetchedFileList) {
+                    for (const filename of fileListToSearch) {
                         const nameWithoutExtension = filename.substring(0, filename.lastIndexOf('.')) || filename;
                         if (nameWithoutExtension.includes(searchedMid)) {
                             matchedFilename = filename;
@@ -426,45 +491,44 @@
                 }
 
                 if (matchedFilename) {
-                    // Membuat URL Gambar tujuan
-                    const owner = gitOwnerInput.value.trim();
-                    const repo = gitRepoInput.value.trim();
-                    const path = gitPathInput.value.trim();
-                    const branch = gitBranchInput.value.trim() || 'main';
-
                     let finalImageUrl = "";
-
-                    // Jika masih menggunakan data cadangan default (mock files), gunakan gambar demo berkualitas tinggi
-                    if (fetchedFileList === defaultMockFiles) {
-                        if (matchedFilename.includes("61531")) {
-                            finalImageUrl = "https://images.unsplash.com/photo-1537462715879-360eeb61a0bc?auto=format&fit=crop&w=1200&q=80"; // Mesin Bubut Presisi
-                        } else if (matchedFilename.includes("80888")) {
-                            finalImageUrl = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"; // Robotik Pabrik
-                        } else if (matchedFilename.includes("61895")) {
-                            finalImageUrl = "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80"; // Transmisi Baja
-                        } else {
-                            finalImageUrl = "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80"; // Umum Industri
-                        }
+                    
+                    if (activeMode === 'local') {
+                        // JIKA MODE LOKAL: Panggil file dari folder lokal images/ Anda secara langsung
+                        finalImageUrl = `images/${matchedFilename}`;
                     } else {
-                        // Jika terhubung ke repo asli, buat url raw github yang mengarah ke file gambar tersebut
+                        // JIKA MODE GITHUB: Buat url file mentah dari raw.githubusercontent
+                        const owner = gitOwnerInput.value.trim();
+                        const repo = gitRepoInput.value.trim();
+                        const path = gitPathInput.value.trim();
+                        const branch = gitBranchInput.value.trim() || 'main';
                         const cleanPath = path ? `${path}/` : "";
+                        
                         finalImageUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${cleanPath}${encodeURIComponent(matchedFilename)}`;
                     }
 
-                    // Tentukan keterangan teks spesifikasi otomatis/dinamis
-                    const specText = `Unit dengan ID (${searchedMid}) ditemukan di dalam file terpadu "${matchedFilename}". Unit ini telah melalui pengujian Quality Control (QC) MIM Manufacturing dengan toleransi presisi tinggi dan dinyatakan lolos sertifikasi kelayakan industri.`;
+                    const specText = `Unit dengan kode MID (${searchedMid}) terverifikasi berada di dalam file gambar terpadu "${matchedFilename}". Komponen unit ini telah diperiksa secara menyeluruh oleh tim penjamin mutu MIM Manufacturing, lulus uji mekanis, dan siap untuk tahap perakitan atau pengiriman selanjutnya.`;
 
                     tampilkanHasil(searchedMid, finalImageUrl, specText, matchedFilename);
                 } else {
                     tampilkanError(searchedMid);
                 }
-            }, 500);
+
+            }, 450);
         });
 
         function tampilkanHasil(mid, imgUrl, specText, filename) {
             statusMessage.classList.add('hidden');
             resultMid.textContent = mid;
             resultImg.src = imgUrl;
+            
+            // Tambahkan penanganan fallback jika gambar tidak ditemukan di folder lokal
+            resultImg.onerror = function() {
+                resultImg.src = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80"; // Fallback ke ilustrasi mesin pabrik
+                resultSpec.innerHTML = `<span class="text-amber-600 font-bold block mb-2"><i data-lucide="alert-triangle" class="inline w-4 h-4 mr-1"></i> Catatan Sistem:</span> File terdeteksi dengan nama <code>${filename}</code>, tetapi gambar fisik tidak ditemukan di folder lokal Anda <code>images/${filename}</code>. Pastikan Anda telah menaruh file tersebut di dalam folder <b>images</b> Anda.<br><br>${specText}`;
+                lucide.createIcons();
+            };
+
             detectedFilename.textContent = filename;
             resultSpec.textContent = specText;
             resultContainer.classList.remove('hidden');
@@ -474,30 +538,36 @@
             resultContainer.classList.add('hidden');
             statusMessage.className = 'mt-8 p-4 rounded-2xl text-red-800 bg-red-50 border border-red-100 font-medium text-sm sm:text-base text-left';
             
-            const isDefault = (fetchedFileList === defaultMockFiles);
-            const owner = gitOwnerInput.value.trim();
-            const repo = gitRepoInput.value.trim();
-
-            let saranError = "";
-            if (isDefault) {
-                saranError = `Anda saat ini berada di <b>Mode Demo Offline</b>. Cobalah mengklik tombol salah satu rekomendasi MID di bawah kolom pencarian (seperti <b>61531</b> atau <b>80888</b>). Untuk mencari data riil Anda, silakan hubungkan folder GitHub Anda melalui ikon roda gigi di pojok kanan atas.`;
+            let petunjukSaran = "";
+            if (activeMode === 'local') {
+                petunjukSaran = `
+                    <p class="mb-2">Sistem tidak menemukan MID <b>${mid}</b> di daftar file lokal Anda.</p>
+                    <p class="text-xs text-red-700/80 leading-relaxed">
+                        <b>Solusi:</b> Buka menu pengaturan (ikon gir di pojok kanan atas), lalu tambahkan nama file gambar Anda ke dalam kotak <b>"Daftar File Gambar Lokal Anda"</b> (misal: <code>61171 61531 62239 62740 1061171 1062740.jpg</code>).
+                    </p>
+                `;
             } else {
-                saranError = `Sistem telah memindai folder repository GitHub <b>${owner}/${repo}</b> tetapi tidak menemukan file gambar yang mengandung angka <b>${mid}</b> di dalam namanya. Pastikan nama file Anda sudah berformat seperti <code>61171 61531 62239 1061171.jpg</code>.`;
+                petunjukSaran = `
+                    <p class="mb-2">ID <b>${mid}</b> tidak ditemukan di dalam repositori GitHub Anda.</p>
+                    <p class="text-xs text-red-700/80 leading-relaxed">
+                        Pastikan file dengan nama gabungan tersebut sudah diunggah di dalam folder GitHub Anda dan Anda telah menekan tombol <b>"Ambil Daftar File Dari GitHub"</b> di menu pengaturan.
+                    </p>
+                `;
             }
 
             statusMessage.innerHTML = `
-                <div class="flex gap-2 items-start">
+                <div class="flex gap-3 items-start">
                     <i data-lucide="alert-circle" class="w-5 h-5 text-red-600 shrink-0 mt-0.5"></i>
                     <div>
-                        <p class="font-bold mb-1">MID ${mid} Tidak Ditemukan</p>
-                        <p class="text-xs text-red-700/80 leading-relaxed">${saranError}</p>
+                        <p class="font-bold mb-1">MID Tidak Terdeteksi</p>
+                        <div class="text-sm text-red-700">${petunjukSaran}</div>
                     </div>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        // Fitur klik tombol rekomendasi riwayat
+        // Fitur klik tombol rekomendasi uji coba cepat
         historyBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 midInput.value = btn.textContent.trim();
@@ -505,7 +575,7 @@
             });
         });
 
-        // --- Logika Interaksi Lightbox Modal ---
+        // --- Logika Interaksi Lightbox Modal Zoom ---
         
         // Membuka Modal saat gambar diklik
         imageTrigger.addEventListener('click', () => {
@@ -519,7 +589,7 @@
         // Menutup Modal saat tombol silang diklik
         closeModal.addEventListener('click', tutupModal);
 
-        // Menutup Modal saat latar belakang luar gambar diklik
+        // Menutup Modal saat latar luar gambar diklik
         imageModal.addEventListener('click', (e) => {
             if (e.target === imageModal) {
                 tutupModal();
@@ -535,10 +605,10 @@
 
         function tutupModal() {
             imageModal.classList.add('hidden');
-            document.body.style.overflow = ''; // Mengaktifkan kembali scroll layar utama
+            document.body.style.overflow = ''; // Aktifkan kembali scroll utama
         }
 
-        // Jalankan saat halaman siap
+        // Inisialisasi awal saat halaman siap dimuat
         window.addEventListener('DOMContentLoaded', () => {
             loadSettings();
         });
