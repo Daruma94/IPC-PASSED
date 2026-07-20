@@ -1,14 +1,762 @@
 {
-  "61171 61531 62239 62740 1061171 1062740": {
-    "nama": "Unit Pelat Baja Utama",
-    "tanggal": "20 Juli 2026",
-    "deskripsi": "Unit pelat baja utama dengan ketebalan standar presisi tinggi, lolos uji tekan beban struktur pabrikasi.",
-    "gambar": "61171 61531 62239 62740 1061171 1062740.jpg"
-  },
-  "1062739 61530": {
-    "nama": "Komponen Motor Hidrolik",
-    "tanggal": "18 Juli 2026",
-    "deskripsi": "Sistem katup hidrolik terintegrasi dengan seal anti kebocoran gas cair.",
-    "gambar": "1062739 61530.jpg"
-  }
+    "version": 1,
+    "count": 108,
+    "records": [
+        {
+            "mid": "",
+            "deskripsi": "SKL Reguler Sachet 40 mL 6+1",
+            "notasi": "16 dus x 4 tier = 64 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/008",
+            "img": "TDK_R_D_PAC_12_008.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Reguler Sachet 40 mL 6+1",
+            "notasi": "16 dus x 4 tier = 64 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/008",
+            "img": "TDK_R_D_PAC_12_008_2.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Refill 7 20 g",
+            "notasi": "12 box x 8 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/009",
+            "img": "TDK_R_D_PAC_12_009.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SK Biomatic Refill 700 ml",
+            "notasi": "12 dus x 7 tier = 84 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2 Document Ref: R2SCF-TAVCQ-MER4L-ABMQN Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/010",
+            "img": "TDK_R_D_PAC_12_010.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Refill 16 50 g",
+            "notasi": "11 dus x 4 tier = 44 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDP/R&D/PAC/12/015",
+            "img": "TDP_R_D_PAC_12_015.png"
+        },
+        {
+            "mid": "80549",
+            "deskripsi": "SK Biomatic Refill 1450 mL",
+            "notasi": "10 dus x 5 tier = 5 0 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/019",
+            "img": "TDK_R_D_PAC_12_019.png"
+        },
+        {
+            "mid": "80550",
+            "deskripsi": "SK Biomatic Refill 1450 mL",
+            "notasi": "10 dus x 5 tier = 5 0 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/019",
+            "img": "TDK_R_D_PAC_12_019.png"
+        },
+        {
+            "mid": "81059",
+            "deskripsi": "SK Biomatic Refill 1450 mL",
+            "notasi": "10 dus x 5 tier = 5 0 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/019",
+            "img": "TDK_R_D_PAC_12_019.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Refill 700 ml",
+            "notasi": "12 kardus x 7 tier = 84 kardus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2 Document Ref: ZB3BV-KFR6Y-BM6K4-ESZ5V Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/",
+            "img": "TDK_R_D_PAC_12.png"
+        },
+        {
+            "mid": "61224",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "80888",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "1061862",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "1063213",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "1080361",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "1160896",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "1160915",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "1180540",
+            "deskripsi": "SKL Sachet 22 g 12+1",
+            "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun Product Arrangement In Box 1 box = 10 renceng 1 renceng = 13 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 15 Agustus 2025 Tanggal : 15 Agustus 2025 2/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "11 box x 4 tier = 44 box Maximum Stacking 2 pallet Shelf life 2 tahun Product Arrangement In Box Susunan produk dalam kardus, abaikan cap lama karena menggunakan cap desain ulir 37 mm. Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Packdev Manager Tanggal : 14 April 2025 Tanggal : 14 April 2025 2 /2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "18 box x 4 tier = 72 box Maximum Stacking 2 pallet Shelf life 2 tahun Product Arrangement In Box Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Packdev Manager Tanggal : 8 September 2025 Tanggal : 8 September 2025 2 /2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_2.png"
+        },
+        {
+            "mid": "1062260",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "26 box x 4 tier = 104 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_3.png"
+        },
+        {
+            "mid": "1062293",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "26 box x 4 tier = 104 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_3.png"
+        },
+        {
+            "mid": "1062295",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "26 box x 4 tier = 104 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_3.png"
+        },
+        {
+            "mid": "1062809",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "26 box x 4 tier = 104 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_3.png"
+        },
+        {
+            "mid": "62260",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "4 box x 3 tier = 72 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_4.png"
+        },
+        {
+            "mid": "62293",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "4 box x 3 tier = 72 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_4.png"
+        },
+        {
+            "mid": "62295",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "4 box x 3 tier = 72 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_4.png"
+        },
+        {
+            "mid": "62809",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "4 box x 3 tier = 72 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_4.png"
+        },
+        {
+            "mid": "63203",
+            "deskripsi": "Sosoft Botol 700 mL",
+            "notasi": "4 box x 3 tier = 72 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/024",
+            "img": "TDK_R_D_PAC_12_024_4.png"
+        },
+        {
+            "mid": "17005203",
+            "deskripsi": "SK Smart 30 ml x 2 Twinpack Sachet",
+            "notasi": "10 kardus x 6 tier = 60 kardus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_2.png"
+        },
+        {
+            "mid": "17005205",
+            "deskripsi": "SK Smart 30 ml x 2 Twinpack Sachet",
+            "notasi": "10 kardus x 6 tier = 60 kardus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_2.png"
+        },
+        {
+            "mid": "17005630",
+            "deskripsi": "SK Smart 30 ml x 2 Twinpack Sachet",
+            "notasi": "10 kardus x 6 tier = 60 kardus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_2.png"
+        },
+        {
+            "mid": "17005631",
+            "deskripsi": "SK Smart 30 ml x 2 Twinpack Sachet",
+            "notasi": "10 kardus x 6 tier = 60 kardus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_2.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SK Smart Sachet 30 ml",
+            "notasi": "10 kardus x 6 tier = 60 kardus Maximum Stacking 2 pallet Shelf life 2,5 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_3.png"
+        },
+        {
+            "mid": "17009404",
+            "deskripsi": "Wings Liquid Detergent 50 mL",
+            "notasi": "9 kardus x 6 tier = 54 kardus Maximum Stacking 2 pallet Shelf life 2,5 tahun Product Arrangement In Box 1 kardus = 18 renceng 1 renceng = 6 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 29 Januari 2026 Tanggal : 29 Januari 2026 2/2",
+            "tdk": "TDK/R&D/PAC/12/032",
+            "img": "TDK_R_D_PAC_12_032.png"
+        },
+        {
+            "mid": "17009405",
+            "deskripsi": "Wings Liquid Detergent 50 mL",
+            "notasi": "9 kardus x 6 tier = 54 kardus Maximum Stacking 2 pallet Shelf life 2,5 tahun Product Arrangement In Box 1 kardus = 18 renceng 1 renceng = 6 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 29 Januari 2026 Tanggal : 29 Januari 2026 2/2",
+            "tdk": "TDK/R&D/PAC/12/032",
+            "img": "TDK_R_D_PAC_12_032.png"
+        },
+        {
+            "mid": "17009530",
+            "deskripsi": "Wings Liquid Detergent 50 mL",
+            "notasi": "9 kardus x 6 tier = 54 kardus Maximum Stacking 2 pallet Shelf life 2,5 tahun Product Arrangement In Box 1 kardus = 18 renceng 1 renceng = 6 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 29 Januari 2026 Tanggal : 29 Januari 2026 2/2",
+            "tdk": "TDK/R&D/PAC/12/032",
+            "img": "TDK_R_D_PAC_12_032.png"
+        },
+        {
+            "mid": "17009531",
+            "deskripsi": "Wings Liquid Detergent 50 mL",
+            "notasi": "9 kardus x 6 tier = 54 kardus Maximum Stacking 2 pallet Shelf life 2,5 tahun Product Arrangement In Box 1 kardus = 18 renceng 1 renceng = 6 sachet Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Manager Tanggal : 29 Januari 2026 Tanggal : 29 Januari 2026 2/2",
+            "tdk": "TDK/R&D/PAC/12/032",
+            "img": "TDK_R_D_PAC_12_032.png"
+        },
+        {
+            "mid": "17009402",
+            "deskripsi": "WLD Botol 700 mL",
+            "notasi": "24 x 4 = 96 box",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_4.png"
+        },
+        {
+            "mid": "17009403",
+            "deskripsi": "WLD Botol 700 mL",
+            "notasi": "24 x 4 = 96 box",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_4.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Refill 525 mL",
+            "notasi": "15 kardus x 8 tier = 120 kardus Tumpukan Maksimum 2 pallet 1/2 Document Ref: ZXR2T-2CCVT-Y93T8-R5CYQ Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/034",
+            "img": "TDK_R_D_PAC_12_034.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Refill 525 g",
+            "notasi": "15 kardus x 8 tier = 120 kardus Tumpukan Maksimum 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/03",
+            "img": "TDK_R_D_PAC_12_03.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 3+1",
+            "notasi": "11 kardus x 2 tier = 22 kardus 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_5.png"
+        },
+        {
+            "mid": "1162625",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1162626",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1162811",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1163204",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1262625",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1262626",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1262811",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1362625",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1362626",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1362811",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1363204",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1462811",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1462625",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1462626",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "1463204",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 6+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_6.png"
+        },
+        {
+            "mid": "62625",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 3+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_7.png"
+        },
+        {
+            "mid": "62626",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 3+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_7.png"
+        },
+        {
+            "mid": "62811",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 3+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_7.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Twinpack Sachet 80 ml 3+1",
+            "notasi": "11 kardus x 3 tier = 33 kardus Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_8.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Refill 360 ml",
+            "notasi": "12 box x 7 tier = 84 box Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/",
+            "img": "TDK_R_D_PAC_12_2.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Boom Cinta Liquid Refill 625 mL",
+            "notasi": "12 box x 7 tier = 84 box Tumpukan Maksimum 2 pallet Umur simpan produk 2 tahun 1/2 Document Ref: CTQSE-5GWBP-2N9FE-ORLUB Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/038",
+            "img": "TDK_R_D_PAC_12_038.png"
+        },
+        {
+            "mid": "62750",
+            "deskripsi": "Boom Cinta Liquid Refill 510 mL",
+            "notasi": "15 box x 8 = 120 box",
+            "tdk": "TDK/R&D/PAC/12/039",
+            "img": "TDK_R_D_PAC_12_039.png"
+        },
+        {
+            "mid": "62751",
+            "deskripsi": "Boom Cinta Liquid Refill 510 mL",
+            "notasi": "15 box x 8 = 120 box",
+            "tdk": "TDK/R&D/PAC/12/039",
+            "img": "TDK_R_D_PAC_12_039.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Boom Cinta Liquid Refill 1600 mL",
+            "notasi": "11 dus x 4 tier = 44 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2 Document Ref: A4SNJ-RTNFU-7RKUZ-5IAPO Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/040",
+            "img": "TDK_R_D_PAC_12_040.png"
+        },
+        {
+            "mid": "63128",
+            "deskripsi": "SKL Sachet 80 ml 3+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2 Document Ref: XXVXH-Y55PG-3FV7Q-TJ6DF Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/043",
+            "img": "TDK_R_D_PAC_12_043.png"
+        },
+        {
+            "mid": "63129",
+            "deskripsi": "SKL Sachet 80 ml 3+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2 Document Ref: XXVXH-Y55PG-3FV7Q-TJ6DF Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/043",
+            "img": "TDK_R_D_PAC_12_043.png"
+        },
+        {
+            "mid": "63240",
+            "deskripsi": "SKL Sachet 80 ml 3+1",
+            "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2 Document Ref: XXVXH-Y55PG-3FV7Q-TJ6DF Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/12/043",
+            "img": "TDK_R_D_PAC_12_043.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Twinpack Sachet 80 ml 3+1",
+            "notasi": "11 kardus x 2 tier = 22 kardus 1/2",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_9.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Sachet 80 ml 3+1",
+            "notasi": "11 kardus x 3 tier = 33 kardus 1/2",
+            "tdk": "TDK/R&D/PAC/12/043",
+            "img": "TDK_R_D_PAC_12_043_2.png"
+        },
+        {
+            "mid": "62984",
+            "deskripsi": "BCL Jerigen 4,5 L",
+            "notasi": "15 box x 3 = 45 box",
+            "tdk": "TDK/R&D/PAC/12/0",
+            "img": "TDK_R_D_PAC_12_0_10.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Boom Cinta Liquid Sachet 20 ml",
+            "notasi": "10 kardus x 7 tier = 70 kardus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/045",
+            "img": "TDK_R_D_PAC_12_045.png"
+        },
+        {
+            "mid": "17009365",
+            "deskripsi": "Wings Liquid Detergent 900 ml",
+            "notasi": "9 box x 4 tier = 36 box Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/048",
+            "img": "TDK_R_D_PAC_12_048.png"
+        },
+        {
+            "mid": "17009462",
+            "deskripsi": "Wings Liquid Detergent 900 ml",
+            "notasi": "9 box x 4 tier = 36 box Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/12/048",
+            "img": "TDK_R_D_PAC_12_048.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SK Smart Refill 450 ml",
+            "notasi": "15 kardus x 5 tier = 75 kardus Tumpukan Maksimum 2 pallet Umur simpan produk 2 ,5 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/",
+            "img": "TDK_R_D_PAC.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "Sosoft Refill 1500 ml",
+            "notasi": "13 kardus x 4 tier = 52 kardus Tumpukan Maksimum 2 pallet Umur simpan produk 2 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/",
+            "img": "TDK_R_D_PAC_2.png"
+        },
+        {
+            "mid": "62776",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "62777",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "63241",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "1063241",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "63523",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "63522",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "9960918",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "9980364",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "9980535",
+            "deskripsi": "SKL Botol 700 ml",
+            "notasi": "4 box x 4 tier = 96 box Maximum Stacking 2 pallet 1/2",
+            "tdk": "TDK/R&D/PAC/12/051",
+            "img": "TDK_R_D_PAC_12_051.png"
+        },
+        {
+            "mid": "17009485",
+            "deskripsi": "SK Smart Refill 1000 ml",
+            "notasi": "9 box x 6 tier = 54 box Tumpukan Maksimum 2 pallet Umur simpan produk 2 ,5 tahun 1/2",
+            "tdk": "TDK/R&D/PAC/",
+            "img": "TDK_R_D_PAC_3.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "SKL Botol 700 mL",
+            "notasi": "17 box x 4 tier = 68 box Maximum Stacking 2 pallet Shelf life 2 tahun Product Arrangement In Box Pallet Arrangement PENGESAHAN Dibuat Oleh, Di setujui Oleh Nama : Muhammad Gusti Nugroho Nama : Deni Rahdiana Jabatan : Sub Section Head Jabatan : R&D Packdev Manager Tanggal : 14 Agustus 2025 Tanggal : 14 Agustus 2025 2 /2",
+            "tdk": "TDK/R&D/PAC/12/041",
+            "img": "TDK_R_D_PAC_12_041.png"
+        },
+        {
+            "mid": "63462",
+            "deskripsi": "EDW 920 gr spons/takeout",
+            "notasi": "10 box x 6 = 60 box",
+            "tdk": "TDK/R&D/PAC/07/106",
+            "img": "TDK_R_D_PAC_07_106.png"
+        },
+        {
+            "mid": "63541",
+            "deskripsi": "EDW 350 gr",
+            "notasi": "14 box x 8 = 122 box",
+            "tdk": "TDK/R&D/PAC/07/109",
+            "img": "TDK_R_D_PAC_07_109.png"
+        },
+        {
+            "mid": "63542",
+            "deskripsi": "EDW 350 gr",
+            "notasi": "14 box x 8 = 122 box",
+            "tdk": "TDK/R&D/PAC/07/109",
+            "img": "TDK_R_D_PAC_07_109.png"
+        },
+        {
+            "mid": "62739",
+            "deskripsi": "EDW 125 gr",
+            "notasi": "20 box x 7 = 140 box",
+            "tdk": "TDK/R&D/PAC/07/114",
+            "img": "TDK_R_D_PAC_07_114.png"
+        },
+        {
+            "mid": "61529",
+            "deskripsi": "EDW 122 ml",
+            "notasi": "20 Dus x 6 Tier = 120 Dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: KVKOR-5CQSW-6EMMX-X4ENG Page 1 of 2",
+            "tdk": "TDP/R&D/PAC/07/043",
+            "img": "TDP_R_D_PAC_07_043.png"
+        },
+        {
+            "mid": "62237",
+            "deskripsi": "EDW 122 ml",
+            "notasi": "20 Dus x 6 Tier = 120 Dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: KVKOR-5CQSW-6EMMX-X4ENG Page 1 of 2",
+            "tdk": "TDP/R&D/PAC/07/043",
+            "img": "TDP_R_D_PAC_07_043.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "EDW 122 ml",
+            "notasi": "13 Dus x 7 Tier = 91 Dus Maximum Stacking 2 Pallet Shelf life 2 Tahun Dokumen ini milik PT. SAYAP MAS UTAMA, dilarang memperbanyak dan mempublikasikan tanpa seizin PT. SAYAP MAS UTAMA Document Ref: JVXMQ-F7JRX-LPSY9-ESA7S Page 1 of 2 :24 = 0.569163 semicoated dg toleransi -+1 mm)",
+            "tdk": "TDP/R&D/PAC/07/043",
+            "img": "TDP_R_D_PAC_07_043_2.png"
+        },
+        {
+            "mid": "",
+            "deskripsi": "EDW 235 ml",
+            "notasi": "14 Dus x 5 Tier = 70 Dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: 6ALQM-PFYGR-MATHV-MAQRM Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/07/044",
+            "img": "TDK_R_D_PAC_07_044.png"
+        },
+        {
+            "mid": "17008570",
+            "deskripsi": "EDW Refill 60 ml",
+            "notasi": "26 dus x 4 layer = 104 dus Maximum Stacking 2 pallet Shelf life 2 Tahun Product Arrangement In Box Pallet Arrangement Dibuat Oleh, Disetujui Oleh, Nama : Ikhsan Adi Putra Nama : Deni Rahdiana Jabatan : R&D Sub - Section Head Jabatan : R&D Manager Tanggal : 12/8/2025 Tanggal : 12/8/2025",
+            "tdk": "TDK/R&D/PAC/07/045",
+            "img": "TDK_R_D_PAC_07_045.png"
+        },
+        {
+            "mid": "61171",
+            "deskripsi": "EDW 675 gr",
+            "notasi": "10 Box x 5 tier = 50 Box Maximum Stacking 2 Palet Shelf life 2 Tahun Product Arrangement In Box Pallet Arrangement Dibuat Oleh, Disetujui Oleh, Nama : Sigit Purnomo Nama : Deni Rahdiana Jabatan : R&D Pack. Dev. Sub Section Head Jabatan : R&D Pack. Dev. Manager Tanggal : 17 November 2025 Tanggal : 17 November 2025",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052.png"
+        },
+        {
+            "mid": "61531",
+            "deskripsi": "EDW 675 gr",
+            "notasi": "10 Box x 5 tier = 50 Box Maximum Stacking 2 Palet Shelf life 2 Tahun Product Arrangement In Box Pallet Arrangement Dibuat Oleh, Disetujui Oleh, Nama : Sigit Purnomo Nama : Deni Rahdiana Jabatan : R&D Pack. Dev. Sub Section Head Jabatan : R&D Pack. Dev. Manager Tanggal : 17 November 2025 Tanggal : 17 November 2025",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052.png"
+        },
+        {
+            "mid": "62239",
+            "deskripsi": "EDW 675 gr",
+            "notasi": "10 Box x 5 tier = 50 Box Maximum Stacking 2 Palet Shelf life 2 Tahun Product Arrangement In Box Pallet Arrangement Dibuat Oleh, Disetujui Oleh, Nama : Sigit Purnomo Nama : Deni Rahdiana Jabatan : R&D Pack. Dev. Sub Section Head Jabatan : R&D Pack. Dev. Manager Tanggal : 17 November 2025 Tanggal : 17 November 2025",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052.png"
+        },
+        {
+            "mid": "62740",
+            "deskripsi": "EDW 675 gr",
+            "notasi": "10 Box x 5 tier = 50 Box Maximum Stacking 2 Palet Shelf life 2 Tahun Product Arrangement In Box Pallet Arrangement Dibuat Oleh, Disetujui Oleh, Nama : Sigit Purnomo Nama : Deni Rahdiana Jabatan : R&D Pack. Dev. Sub Section Head Jabatan : R&D Pack. Dev. Manager Tanggal : 17 November 2025 Tanggal : 17 November 2025",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052.png"
+        },
+        {
+            "mid": "1061171",
+            "deskripsi": "EDW 675 gr",
+            "notasi": "10 Box x 5 tier = 50 Box Maximum Stacking 2 Palet Shelf life 2 Tahun Product Arrangement In Box Pallet Arrangement Dibuat Oleh, Disetujui Oleh, Nama : Sigit Purnomo Nama : Deni Rahdiana Jabatan : R&D Pack. Dev. Sub Section Head Jabatan : R&D Pack. Dev. Manager Tanggal : 17 November 2025 Tanggal : 17 November 2025",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052.png"
+        },
+        {
+            "mid": "61171",
+            "deskripsi": "EDW 650 ml",
+            "notasi": "10 dus x 5 tier = 50 dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: WLBPL-9OBTK-8DRUX-2HRIK Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052_2.png"
+        },
+        {
+            "mid": "61531",
+            "deskripsi": "EDW 650 ml",
+            "notasi": "10 dus x 5 tier = 50 dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: WLBPL-9OBTK-8DRUX-2HRIK Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052_2.png"
+        },
+        {
+            "mid": "62239",
+            "deskripsi": "EDW 650 ml",
+            "notasi": "10 dus x 5 tier = 50 dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: WLBPL-9OBTK-8DRUX-2HRIK Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052_2.png"
+        },
+        {
+            "mid": "62740",
+            "deskripsi": "EDW 650 ml",
+            "notasi": "10 dus x 5 tier = 50 dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: WLBPL-9OBTK-8DRUX-2HRIK Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052_2.png"
+        },
+        {
+            "mid": "1061171",
+            "deskripsi": "EDW 650 ml",
+            "notasi": "10 dus x 5 tier = 50 dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2 Document Ref: WLBPL-9OBTK-8DRUX-2HRIK Page 1 of 2",
+            "tdk": "TDK/R&D/PAC/07/052",
+            "img": "TDK_R_D_PAC_07_052_2.png"
+        },
+        {
+            "mid": "62041",
+            "deskripsi": "EDW 5000 ML",
+            "notasi": "13 dus x 3 tier = 39 0 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2",
+            "tdk": "",
+            "img": "EDW_5000_ML.png"
+        }
+    ]
 }
