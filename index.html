@@ -92,7 +92,7 @@
             </div>
             
             <!-- Notifikasi Error (Custom Alert) -->
-            <div id="error-card" class="hidden bg-red-50 border border-red-200 text-red-600 rounded-xl p-3 text-sm flex items-start gap-3 fade-in">
+            <div id="error-card" class="hidden bg-red-50 border border-red-200 text-red-600 rounded-xl p-3 text-sm flex items-start gap-3">
                 <i class="fa-solid fa-circle-exclamation mt-0.5 text-red-500"></i>
                 <div>
                     <strong class="block font-semibold">Gagal Menemukan Data</strong>
@@ -110,11 +110,11 @@
         <div id="history-section" class="mt-6 hidden">
             <p class="text-[11px] text-gray-400 font-semibold mb-2 uppercase tracking-wider">Riwayat Terakhir</p>
             <div class="flex gap-2 overflow-x-auto history-scroll pb-2" id="history-list">
-                <!-- Chip riwayat akan di-generate di sini -->
+                <!-- Chip riwayat diletakkan di sini secara dinamis -->
             </div>
         </div>
 
-        <!-- HASIL PENCARIAN (Awalnya disembunyikan) -->
+        <!-- HASIL PENCARIAN (Awalnya tersembunyi) -->
         <div id="result-section" class="hidden mt-6 pt-6 border-t border-gray-100">
             <div class="text-center mb-4">
                 <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-check-circle mr-1"></i> VALIDATED</span>
@@ -122,7 +122,7 @@
             
             <!-- Gambar dengan efek kaca -->
             <div class="glass-frame mb-5" onclick="openModal()">
-                <img id="res-image" src="" alt="Unit Image">
+                <img id="res-image" src="" alt="Unit Image" onerror="handleImageError(this)">
                 <div class="text-center mt-2 text-[10px] text-gray-500 font-medium">
                     <i class="fa-solid fa-expand mr-1"></i> Klik gambar untuk memperbesar
                 </div>
@@ -155,7 +155,7 @@
     </div>
 
     <!-- MODAL GAMBAR FULLSCREEN -->
-    <div id="image-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/60 transition-opacity opacity-0">
+    <div id="image-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/80 transition-opacity opacity-0">
         <div class="relative w-full max-w-2xl bg-white rounded-2xl p-2 shadow-2xl transform scale-95 transition-transform" id="modal-content">
             <button onclick="closeModal()" class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-colors">
                 <i class="fa-solid fa-xmark"></i>
@@ -165,32 +165,7 @@
     </div>
 
     <script>
-        // Data Dummy (Digunakan sebagai fallback jika deskripsi.json tidak ditemukan)
-        const dummyData = {
-            "MID-001": {
-                "id": "MID-001",
-                "nama": "Generator X-Treme 500",
-                "tanggal": "20 Juli 2026",
-                "deskripsi": "Unit telah lulus uji beban maksimum selama 48 jam nonstop. Kompresor berfungsi optimal pada tekanan tinggi tanpa ada indikasi kebocoran. Siap didistribusikan ke klien.",
-                "gambar": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
-            },
-            "MID-002": {
-                "id": "MID-002",
-                "nama": "Turbine Alpha V2",
-                "tanggal": "19 Juli 2026",
-                "deskripsi": "Inspeksi visual menunjukkan kondisi body 100% mulus. Sistem kelistrikan stabil dan modul sensor terkalibrasi dengan akurasi 99.9%. Quality control tahap akhir disetujui.",
-                "gambar": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80"
-            },
-            "MID-003": {
-                "id": "MID-003",
-                "nama": "Robotic Arm Z-Series",
-                "tanggal": "15 Juli 2026",
-                "deskripsi": "Kalibrasi sumbu rotasi berhasil dilakukan. Tingkat presisi mencapai toleransi standar industri manufaktur. Terdapat sedikit goresan pada cat dasar (base) namun tidak mempengaruhi performa mekanis.",
-                "gambar": "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=800&q=80"
-            }
-        };
-
-        // State Array untuk Riwayat Pencarian
+        // Array Riwayat Pencarian lokal
         let searchHistory = [];
 
         document.getElementById('search-form').addEventListener('submit', async function(e) {
@@ -199,67 +174,77 @@
             const inputVal = document.getElementById('mid-input').value.trim().toUpperCase();
             if(!inputVal) return;
 
-            // Reset UI
+            // Reset Tampilan
             hideError();
             hideResult();
             setLoading(true);
 
             try {
-                let data = null;
-
-                // MCOBA MENGAMBIL DARI deskripsi.json
-                // Catatan: Jika dijalankan secara lokal (file://) ini mungkin akan error CORS,
-                // sehingga akan langsung masuk ke blok catch atau menggunakan dummyData.
-                try {
-                    const response = await fetch('deskripsi.json');
-                    if (response.ok) {
-                        const jsonData = await response.json();
-                        // Asumsikan struktur JSON seperti dummyData
-                        data = jsonData[inputVal]; 
-                    } else {
-                        throw new Error("File JSON tidak ditemukan, beralih ke dummy data");
-                    }
-                } catch (fetchError) {
-                    console.log("Menggunakan data dummy lokal karena: ", fetchError.message);
-                    data = dummyData[inputVal];
+                // Mengambil deskripsi.json langsung dari root repositori GitHub Anda
+                const response = await fetch('deskripsi.json');
+                
+                if (!response.ok) {
+                    throw new Error("Gagal memuat file deskripsi.json");
                 }
+                
+                const jsonData = await response.json();
+                const data = jsonData[inputVal];
 
-                // Jeda simulasi loading (untuk UX agar tidak terlalu cepat)
+                // Simulasi delay sedikit demi kenyamanan visual transition
                 setTimeout(() => {
                     setLoading(false);
                     
                     if (data) {
-                        showResult(data);
+                        showResult(data, inputVal);
                         addToHistory(inputVal);
                     } else {
-                        showError(`Data dengan kode <strong>${inputVal}</strong> tidak ditemukan.`);
+                        showError(`Kode <strong>${inputVal}</strong> tidak terdaftar di file deskripsi.json.`);
                     }
-                }, 600); 
+                }, 500);
 
             } catch (error) {
                 setLoading(false);
-                showError("Terjadi kesalahan sistem saat memuat data.");
+                showError("Gagal terhubung ke database deskripsi.json. Pastikan file ada di repositori utama.");
+                console.error(error);
             }
         });
 
-        function showResult(data) {
-            // Isi data ke DOM
-            document.getElementById('res-id').innerText = data.id;
+        function showResult(data, requestedMid) {
+            // Pengisian data ke elemen HTML langsung dari properti deskripsi.json Anda
+            document.getElementById('res-id').innerText = requestedMid;
             document.getElementById('res-name').innerText = data.nama || '-';
             document.getElementById('res-date').innerText = data.tanggal || '-';
             document.getElementById('res-desc').innerText = data.deskripsi || '-';
             
-            // Set Gambar
+            // Konfigurasi Path Gambar ke Folder "images/" di repositori Anda
+            // Jika di json ditulis "mesin1.jpg", path-nya otomatis menjadi "images/mesin1.jpg"
+            let imagePath = "";
+            if (data.gambar) {
+                if (data.gambar.startsWith('http://') || data.gambar.startsWith('https://')) {
+                    imagePath = data.gambar; // Jika link luar penuh tetap didukung
+                } else {
+                    imagePath = `images/${data.gambar}`; // Sambungkan dengan folder images/ di github Anda
+                }
+            } else {
+                imagePath = "images/default-placeholder.jpg"; // Fallback jika kosong
+            }
+
             const imgEl = document.getElementById('res-image');
             const modalImgEl = document.getElementById('modal-image');
-            imgEl.src = data.gambar;
-            modalImgEl.src = data.gambar;
+            imgEl.src = imagePath;
+            modalImgEl.src = imagePath;
 
-            // Tampilkan dengan animasi (menambahkan ulang class fade-in agar ter-trigger lagi)
+            // Memunculkan bagian hasil dengan animasi fade-in yang mulus
             const resultSection = document.getElementById('result-section');
             resultSection.classList.remove('hidden', 'fade-in');
-            void resultSection.offsetWidth; // Trigger reflow (penting untuk merestart animasi CSS)
+            void resultSection.offsetWidth; // Memicu reflow browser agar animasi ter-reset
             resultSection.classList.add('fade-in');
+        }
+
+        // Penanganan jika gambar tidak ditemukan di folder images/ repositori
+        function handleImageError(image) {
+            image.onerror = null; // Mencegah loop tak terbatas
+            image.src = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"; // Fallback ke ilustrasi mesin berkualitas tinggi
         }
 
         function hideResult() {
@@ -271,7 +256,7 @@
             document.getElementById('error-message').innerHTML = msg;
             
             errorCard.classList.remove('hidden', 'fade-in');
-            void errorCard.offsetWidth; // Trigger reflow
+            void errorCard.offsetWidth;
             errorCard.classList.add('fade-in');
         }
 
@@ -297,14 +282,11 @@
             }
         }
 
+        // Manajemen Riwayat Pencarian
         function addToHistory(mid) {
-            // Hapus jika sudah ada (agar tidak duplikat), lalu taruh di awal
             searchHistory = searchHistory.filter(item => item !== mid);
             searchHistory.unshift(mid);
-            
-            // Batasi maksimal 5 riwayat
-            if (searchHistory.length > 5) searchHistory.pop();
-            
+            if (searchHistory.length > 4) searchHistory.pop(); // Batas riwayat maksimal 4 agar tampilan tetap rapi di hp
             renderHistory();
         }
 
@@ -323,25 +305,24 @@
             searchHistory.forEach(mid => {
                 const chip = document.createElement('button');
                 chip.type = 'button';
-                chip.className = 'flex-shrink-0 bg-blue-50 text-[#1a337e] border border-blue-200 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors whitespace-nowrap';
+                chip.className = 'flex-shrink-0 bg-blue-50 text-[#1a337e] border border-blue-100 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors whitespace-nowrap';
                 chip.innerHTML = `<i class="fa-solid fa-clock-rotate-left mr-1 opacity-70"></i> ${mid}`;
                 
                 chip.onclick = () => {
                     document.getElementById('mid-input').value = mid;
-                    document.getElementById('submit-btn').click(); // trigger submit
+                    document.getElementById('submit-btn').click();
                 };
 
                 historyList.appendChild(chip);
             });
         }
 
-        // --- Logika Modal Gambar ---
+        // Manajemen Modal Gambar Fullscreen
         const modal = document.getElementById('image-modal');
         const modalContent = document.getElementById('modal-content');
 
         function openModal() {
             modal.classList.remove('hidden');
-            // Sedikit delay agar transisi opasitas terlihat
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 modalContent.classList.remove('scale-95');
@@ -353,13 +334,11 @@
             modal.classList.add('opacity-0');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
-            // Tunggu animasi CSS selesai baru disembunyikan
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
         }
 
-        // Tutup modal jika mengklik area luar gambar
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
                 closeModal();
