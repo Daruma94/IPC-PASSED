@@ -4,250 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIM Manufacturing - Quality Passed</title>
-    <!-- Menggunakan Tailwind CSS untuk styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome untuk ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Poppins) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #e6f0fa 0%, #f3f8fc 100%);
-            min-height: 100vh;
-        }
-        
-        /* Kustomisasi bayangan agar persis seperti gambar */
-        .btn-shadow {
-            box-shadow: 0 8px 20px rgba(47, 101, 224, 0.25);
-        }
-        
-        .card-shadow {
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Animasi loading sederhana */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2f65e0;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        body { font-family: 'Poppins', sans-serif; background: #f3f8fc; min-height: 100vh; }
+        .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #1a337e; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="flex items-center justify-center p-4">
 
-    <!-- Container Utama -->
-    <div class="bg-white rounded-[32px] card-shadow w-full max-w-[420px] p-8 relative overflow-hidden transition-all duration-300" id="main-card">
+    <div class="bg-white rounded-[32px] card-shadow w-full max-w-[420px] p-8 transition-all duration-300" id="main-card">
         
-        <!-- Ikon Pengaturan di pojok kanan atas -->
-        <button class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors">
-            <i class="fa-solid fa-gear text-xl"></i>
-        </button>
-
-        <!-- BAGIAN 1: PENCARIAN (Tampilan Default) -->
-        <div id="search-section" class="block">
-            <!-- Logo MIM -->
+        <!-- BAGIAN PENCARIAN -->
+        <div id="search-section">
             <div class="flex flex-col items-center justify-center mt-4">
-                <div class="w-[100px] h-[6px] bg-[#1a337e] mb-1"></div>
+                <div class="w-[80px] h-[5px] bg-[#1a337e] mb-1"></div>
                 <h1 class="text-6xl font-black text-[#1a337e] tracking-tighter m-0 leading-none">MIM</h1>
-                <div class="bg-[#1a337e] text-white text-[9px] font-bold py-[3px] px-3 tracking-[0.25em] mt-1.5 rounded-sm">
+                <div class="bg-[#1a337e] text-white text-[8px] font-bold py-[3px] px-3 tracking-[0.25em] mt-2 rounded-[2px]">
                     MANUFACTURING
                 </div>
             </div>
 
-            <!-- Judul & Deskripsi -->
             <div class="mt-8 mb-6 text-center">
-                <h2 class="text-[22px] font-black text-[#1a2b5e] tracking-wide mb-2">QUALITY PASSED</h2>
-                <p class="text-gray-500 text-[13px] leading-relaxed px-2">
-                    Masukkan kode MID untuk mengakses spesifikasi dan gambar unit secara instan
-                </p>
+                <h2 class="text-[20px] font-black text-[#1a2b5e] tracking-wide mb-2">QUALITY PASSED</h2>
+                <p class="text-gray-500 text-[13px] leading-relaxed px-2">Masukkan kode MID untuk mengakses spesifikasi unit</p>
             </div>
 
-            <!-- Form Pencarian -->
             <form id="search-form" class="space-y-4">
-                <!-- Input Field -->
                 <div class="relative flex items-center">
                     <i class="fa-solid fa-inbox absolute left-4 text-gray-400"></i>
-                    <input type="text" id="mid-input" required
-                        class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#2f65e0] focus:ring-1 focus:ring-[#2f65e0] text-sm text-gray-700 transition-all placeholder-gray-400"
-                        placeholder="Masukkan salah satu MID (Contoh...">
+                    <input type="text" id="mid-input" required class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#1a337e] text-sm text-gray-700 transition-all" placeholder="Masukkan nomor MID...">
                 </div>
-
-                <!-- Tombol Cari -->
-                <button type="submit" 
-                    class="w-full bg-[#356df1] hover:bg-[#2b5ada] text-white font-semibold py-3.5 px-4 rounded-xl flex justify-center items-center gap-2 btn-shadow transition-all text-[15px]">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Cari
+                <button type="submit" class="w-full bg-[#1a337e] hover:bg-[#12245a] text-white font-semibold py-3.5 rounded-xl flex justify-center items-center gap-2 transition-all text-[15px]">
+                    <i class="fa-solid fa-magnifying-glass"></i> Cari
                 </button>
             </form>
-
-            <!-- Uji Coba Cepat (Pill buttons) -->
-            <div class="mt-8">
-                <div class="flex flex-wrap items-center justify-center gap-y-3 gap-x-2 text-[11px] font-semibold">
-                    <span class="text-gray-400 tracking-wider mr-1">UJI COBA CEPAT:</span>
-                    <button class="quick-btn bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-100 py-1.5 px-4 rounded-full transition-colors">61531</button>
-                    <button class="quick-btn bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-100 py-1.5 px-4 rounded-full transition-colors">62239</button>
-                    <button class="quick-btn bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-100 py-1.5 px-4 rounded-full transition-colors">1062740</button>
-                    <button class="quick-btn bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-100 py-1.5 px-4 rounded-full transition-colors">61171</button>
-                </div>
-            </div>
         </div>
 
-        <!-- BAGIAN 2: HASIL GAMBAR (Disembunyikan secara default) -->
+        <!-- BAGIAN HASIL -->
         <div id="result-section" class="hidden flex-col items-center">
-            
-            <h2 class="text-xl font-black text-[#1a2b5e] mb-2 text-center" id="result-title">MID: -</h2>
-            <p class="text-gray-500 text-xs text-center mb-6" id="result-path"></p>
-            
-            <!-- Area Gambar -->
+            <h2 class="text-lg font-black text-[#1a2b5e] mb-4" id="result-title">MID: -</h2>
             <div class="w-full aspect-square bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center overflow-hidden mb-6 relative">
-                <!-- Indikator Loading -->
-                <div id="loading-indicator" class="absolute flex flex-col items-center gap-2">
-                    <div class="loader"></div>
-                    <span class="text-xs text-gray-400">Memuat gambar...</span>
-                </div>
-                
-                <!-- Tag Image Asli -->
-                <img id="result-image" src="" alt="Gambar Unit" class="w-full h-full object-contain hidden">
-                
-                <!-- Pesan Error -->
-                <div id="error-message" class="hidden flex-col items-center text-center p-4">
-                    <i class="fa-solid fa-triangle-exclamation text-4xl text-red-400 mb-2"></i>
-                    <p class="text-sm font-bold text-gray-700">Gambar tidak ditemukan</p>
-                    <p class="text-xs text-gray-500 mt-1 text-center">Pastikan file gambar tersedia di folder IPC-PASSED/images/</p>
-                </div>
+                <div id="loading-indicator" class="flex flex-col items-center gap-2"><div class="loader"></div></div>
+                <img id="result-image" src="" alt="Unit Image" class="w-full h-full object-contain hidden">
+                <div id="error-message" class="hidden text-gray-500 text-sm p-4 text-center"><i class="fa-solid fa-circle-xmark text-red-400 text-2xl mb-2"></i><br>Gambar tidak ditemukan</div>
             </div>
-
-            <!-- Tombol Kembali -->
-            <button id="btn-back" 
-                class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition-all text-sm">
-                <i class="fa-solid fa-arrow-left"></i>
-                Kembali ke Pencarian
-            </button>
+            <button id="btn-back" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl transition-all text-sm">Kembali</button>
         </div>
-
     </div>
 
-    <!-- LOGIKA JAVASCRIPT -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchForm = document.getElementById('search-form');
-            const midInput = document.getElementById('mid-input');
-            const searchSection = document.getElementById('search-section');
-            const resultSection = document.getElementById('result-section');
-            const btnBack = document.getElementById('btn-back');
-            const quickBtns = document.querySelectorAll('.quick-btn');
+        // Daftar file yang ada di folder images/ Anda
+        const imageFiles = [
+            "1062739 61530.jpg",
+            "61170 61529 62237 62739.jpg",
+            "61171 61531 62239 62740 1061171 1062740.jpg",
+            "61172.jpg",
+            "61895 63244.jpg",
+            "62654.jpg",
+            "62748 62749.jpg",
+            "62750 62751.jpg",
+            "62787 62788.jpg",
+            "62984.jpg",
+            "63073 1063073.jpg",
+            "63462.jpg"
+        ];
+
+        const form = document.getElementById('search-form');
+        const input = document.getElementById('mid-input');
+        const searchSection = document.getElementById('search-section');
+        const resultSection = document.getElementById('result-section');
+        const img = document.getElementById('result-image');
+        const loader = document.getElementById('loading-indicator');
+        const error = document.getElementById('error-message');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = input.value.trim();
+            const match = imageFiles.find(f => f.includes(val));
+
+            searchSection.classList.add('hidden');
+            resultSection.classList.remove('hidden');
+            resultSection.classList.add('flex');
             
-            const resultImage = document.getElementById('result-image');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            const errorMessage = document.getElementById('error-message');
-            const resultTitle = document.getElementById('result-title');
-            const resultPath = document.getElementById('result-path');
+            img.classList.add('hidden');
+            error.classList.add('hidden');
+            loader.classList.remove('hidden');
 
-            // --- PENGATURAN NAMA FILE KHUSUS (SESUAI REQUEST) ---
-            // Di sini Anda bisa mendaftarkan file yang punya nama unik gabungan beberapa nomor.
-            // Sistem akan mengecek apakah angka yang dicari ada di dalam nama file ini.
-            const specialFiles = [
-                "1 2 3 4 5.jpg" // File ini akan dipanggil jika user mencari 1, 2, 3, 4, atau 5
-            ];
-
-            // Fungsi untuk menentukan nama file berdasarkan input user
-            function getFilename(mid) {
-                mid = mid.trim();
-                
-                // Cek apakah angka yang diketik ada di dalam daftar 'specialFiles'
-                for (let i = 0; i < specialFiles.length; i++) {
-                    let file = specialFiles[i];
-                    // Hapus ekstensi .jpg/.png untuk mengecek angkanya saja
-                    let nameWithoutExt = file.replace(/\.[^/.]+$/, ""); 
-                    // Pisahkan berdasarkan spasi
-                    let numbersInFile = nameWithoutExt.split(" ");
-                    
-                    // Jika nomor yang dicari ada di dalam nama file tersebut
-                    if (numbersInFile.includes(mid)) {
-                        return file;
-                    }
-                }
-
-                // Jika tidak ada di file spesial, panggil secara normal: {nomor}.jpg
-                return mid + ".jpg";
+            if (match) {
+                document.getElementById('result-title').textContent = "MID: " + val;
+                img.src = "images/" + match;
+            } else {
+                loader.classList.add('hidden');
+                error.classList.remove('hidden');
             }
-
-            // Fungsi utama untuk melakukan pencarian
-            function doSearch(mid) {
-                if (!mid) return;
-
-                // Tentukan nama file
-                const filename = getFilename(mid);
-                
-                // Folder path sesuai repository github Anda
-                const basePath = 'IPC-PASSED/images/';
-                const imagePath = basePath + filename;
-
-                // Update UI (Ganti ke tampilan hasil)
-                searchSection.classList.add('hidden');
-                resultSection.classList.remove('hidden');
-                resultSection.classList.add('flex');
-                
-                resultTitle.textContent = `MID: ${mid}`;
-                resultPath.textContent = `Memanggil: ${imagePath}`;
-
-                // Reset Status Gambar
-                resultImage.classList.add('hidden');
-                errorMessage.classList.add('hidden');
-                loadingIndicator.classList.remove('hidden');
-
-                // Coba muat gambar
-                resultImage.src = imagePath;
-            }
-
-            // Event saat form disubmit (Tombol Cari diklik / Tekan Enter)
-            searchForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                doSearch(midInput.value);
-            });
-
-            // Event untuk tombol Uji Coba Cepat
-            quickBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const val = btn.textContent.trim();
-                    midInput.value = val;
-                    doSearch(val);
-                });
-            });
-
-            // Event saat tombol Kembali diklik
-            btnBack.addEventListener('click', () => {
-                resultSection.classList.add('hidden');
-                resultSection.classList.remove('flex');
-                searchSection.classList.remove('hidden');
-                midInput.value = ''; // Kosongkan input
-                midInput.focus();
-            });
-
-            // Event penanganan gambar
-            resultImage.onload = () => {
-                // Jika gambar berhasil diload
-                loadingIndicator.classList.add('hidden');
-                resultImage.classList.remove('hidden');
-            };
-
-            resultImage.onerror = () => {
-                // Jika gambar gagal diload (tidak ditemukan di Github / typo)
-                loadingIndicator.classList.add('hidden');
-                errorMessage.classList.remove('hidden');
-                errorMessage.classList.add('flex');
-            };
         });
+
+        img.onload = () => { loader.classList.add('hidden'); img.classList.remove('hidden'); };
+        img.onerror = () => { loader.classList.add('hidden'); error.classList.remove('hidden'); };
+        document.getElementById('btn-back').onclick = () => {
+            resultSection.classList.add('hidden');
+            searchSection.classList.remove('hidden');
+            input.value = '';
+        };
     </script>
 </body>
 </html>
