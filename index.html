@@ -38,6 +38,15 @@
         .animate-fade-in {
             animation: fadeIn 0.4s ease-out forwards;
         }
+
+        /* Animasi modal zoom */
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .animate-zoom-in {
+            animation: zoomIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#e6f0fa] via-[#eff5fc] to-[#e2edf8] min-h-screen flex items-center justify-center p-4 sm:p-8">
@@ -77,7 +86,7 @@
                 <input 
                     type="text" 
                     id="midInput" 
-                    placeholder="Contoh: 80888" 
+                    placeholder="Contoh: 80888 atau 80889" 
                     class="w-full pl-12 sm:pl-14 pr-6 py-3.5 sm:py-4 rounded-2xl border border-gray-200 text-gray-700 text-base sm:text-lg focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all font-semibold placeholder-gray-400 bg-white"
                     required
                 >
@@ -101,6 +110,9 @@
                 80888
             </button>
             <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
+                80889
+            </button>
+            <button type="button" class="history-btn px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-gray-100 bg-gray-50/50 text-gray-600 font-bold text-xs sm:text-sm hover:bg-gray-100 hover:border-gray-200 transition-colors shadow-sm">
                 61895
             </button>
         </div>
@@ -114,10 +126,17 @@
         <div id="resultContainer" class="hidden mt-8 text-left animate-fade-in">
             <div class="bg-white/60 backdrop-blur-sm rounded-3xl p-4 sm:p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100/50">
                 <div class="flex flex-col md:flex-row gap-6 items-center">
-                    <!-- Area Gambar -->
+                    <!-- Area Gambar dengan Efek Hover & Petunjuk Zoom -->
                     <div class="w-full md:w-1/2">
-                        <div class="relative bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] shadow-inner flex items-center justify-center group">
+                        <div id="imageTrigger" class="relative bg-gray-100 rounded-2xl overflow-hidden aspect-[4/3] shadow-inner flex items-center justify-center group cursor-zoom-in">
                             <img id="resultImg" src="" alt="Unit Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <!-- Hamparan Petunjuk Hover -->
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center duration-300">
+                                <span class="bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-full border border-white/30 text-xs font-bold tracking-wider flex items-center gap-1.5 shadow-lg">
+                                    <i data-lucide="maximize-2" class="w-4 h-4"></i> Klik untuk Memperbesar
+                                </span>
+                            </div>
                         </div>
                     </div>
                     
@@ -142,6 +161,19 @@
 
     </div>
 
+    <!-- Modal Lightbox Pratinjau Gambar Berbingkai Glassmorphism -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-[#111827]/70 backdrop-blur-md transition-opacity duration-300">
+        <!-- Bingkai Glassmorphism -->
+        <div class="relative max-w-4xl w-full bg-white/10 backdrop-blur-xl p-3 sm:p-4 rounded-[2.5rem] border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] animate-zoom-in">
+            <!-- Tombol Tutup Modern -->
+            <button id="closeModal" class="absolute -top-14 right-2 text-white hover:text-gray-200 transition-colors bg-white/10 hover:bg-white/20 p-2.5 rounded-full backdrop-blur-sm border border-white/20">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <!-- Gambar Modal -->
+            <img id="modalImg" src="" alt="Pratinjau Unit" class="w-full max-h-[75vh] object-contain rounded-2xl">
+        </div>
+    </div>
+
     <!-- Script Logika Aplikasi -->
     <script>
         lucide.createIcons();
@@ -155,17 +187,29 @@
         const resultSpec = document.getElementById('resultSpec');
         const historyBtns = document.querySelectorAll('.history-btn');
 
-        // Data dummy bawaan agar web langsung terlihat berfungsi setelah diupload
-        const dummyData = {
-            "80888": {
-                img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
-                spec: "Unit Mesin Tipe Alpha-X. Kondisi komponen mekanik dan elektrikal 100% normal. Lolos uji tekanan dan suhu ekstrem."
+        // Modal Elements
+        const imageTrigger = document.getElementById('imageTrigger');
+        const imageModal = document.getElementById('imageModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalImg = document.getElementById('modalImg');
+
+        /* Sistem Pemetaan / Pengelompokan MID (Grouping):
+           Beberapa kode MID dalam array 'mids' akan mengarah ke file gambar & teks spesifikasi yang sama.
+        */
+        const midGroups = [
+            {
+                // Contoh: MID 80888 dan 80889 memanggil satu gambar yang sama
+                mids: ["80888", "80889", "80890"],
+                img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80",
+                spec: "Unit Mesin Tipe Alpha-X (Grup Seri 80888-80890). Kondisi komponen mekanik dan elektrikal teruji 100% prima dan lulus sertifikasi industri."
             },
-            "61895": {
-                img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80",
-                spec: "Komponen Transmisi Baja. Material solid, tidak ditemukan retakan rambut pada x-ray test. Siap untuk perakitan."
+            {
+                // Contoh: MID 61895 dan 61896 memanggil gambar transmisi
+                mids: ["61895", "61896"],
+                img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80",
+                spec: "Komponen Transmisi Baja Premium (Grup Seri 61895-61896). Kepadatan struktur solid, bebas dari retakan internal berdasarkan tes ultrasonik."
             }
-        };
+        ];
 
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -180,16 +224,22 @@
             statusMessage.classList.remove('hidden');
             lucide.createIcons();
 
-            // Simulasi loading sebentar agar terasa seperti aplikasi sungguhan (0.8 detik)
+            // Simulasi loading sebentar (0.8 detik)
             setTimeout(() => {
-                if (dummyData[midValue]) {
-                    tampilkanHasil(midValue, dummyData[midValue].img, dummyData[midValue].spec);
+                // 2. Cek apakah ada kecocokan di dalam data grup (midGroups)
+                const matchedGroup = midGroups.find(group => group.mids.includes(midValue));
+
+                if (matchedGroup) {
+                    tampilkanHasil(midValue, matchedGroup.img, matchedGroup.spec);
                 } else {
+                    /* 3. JIKA TIDAK ADA DI GRUP: 
+                       Sistem akan mencoba mencari file dinamis secara langsung di folder images Anda (misal: images/12345.jpg)
+                    */
                     const imageUrl = `images/${midValue}.jpg`;
                     const imgTest = new Image();
                     
                     imgTest.onload = function() {
-                        tampilkanHasil(midValue, imageUrl, `Unit MID ${midValue} telah melewati pengecekan kualitas standar pabrik dan siap digunakan.`);
+                        tampilkanHasil(midValue, imageUrl, `Unit MID ${midValue} telah melewati pengecekan kualitas standar pabrik dan siap dikirim.`);
                     };
                     
                     imgTest.onerror = function() {
@@ -212,7 +262,7 @@
         function tampilkanError(mid) {
             resultContainer.classList.add('hidden');
             statusMessage.className = 'mt-8 p-4 rounded-2xl text-red-800 bg-red-50 border border-red-100 font-medium text-sm sm:text-base';
-            statusMessage.innerHTML = `<i data-lucide="alert-circle" class="inline w-4 h-4 mr-2 mb-0.5"></i> Data atau gambar untuk MID <b>${mid}</b> tidak ditemukan. Pastikan Anda telah mengupload file <b>${mid}.jpg</b> ke folder images.`;
+            statusMessage.innerHTML = `<i data-lucide="alert-circle" class="inline w-4 h-4 mr-2 mb-0.5"></i> Data atau gambar untuk MID <b>${mid}</b> tidak ditemukan. Pastikan Anda telah mengupload file gambar di dalam folder <b>images</b> atau mendaftarkannya di grup data kodingan.`;
             lucide.createIcons();
         }
 
@@ -223,6 +273,39 @@
                 searchForm.dispatchEvent(new Event('submit'));
             });
         });
+
+        // --- Logika Interaksi Lightbox Modal ---
+        
+        // Membuka Modal saat gambar diklik
+        imageTrigger.addEventListener('click', () => {
+            if (resultImg.src) {
+                modalImg.src = resultImg.src;
+                imageModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Kunci scroll layar utama
+            }
+        });
+
+        // Menutup Modal saat tombol silang diklik
+        closeModal.addEventListener('click', tutupModal);
+
+        // Menutup Modal saat latar belakang luar gambar diklik
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                tutupModal();
+            }
+        });
+
+        // Menutup Modal dengan menekan tombol ESC pada keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !imageModal.classList.contains('hidden')) {
+                tutupModal();
+            }
+        });
+
+        function tutupModal() {
+            imageModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Mengaktifkan kembali scroll layar utama
+        }
     </script>
 </body>
 </html>
