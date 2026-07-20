@@ -132,23 +132,26 @@
             <!-- Data Spesifikasi -->
             <div class="space-y-3">
                 <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                    <p class="text-[11px] text-gray-400 font-semibold mb-0.5">KODE PENCARIAN</p>
+                    <p class="text-[11px] text-gray-400 font-semibold mb-0.5">KODE PENCARIAN (MID)</p>
                     <p id="res-id" class="text-[15px] font-bold text-[#1a2b5e] uppercase">-</p>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                        <p class="text-[11px] text-gray-400 font-semibold mb-0.5">NAMA UNIT</p>
-                        <p id="res-name" class="text-[13px] font-bold text-gray-800 truncate">-</p>
+                        <!-- Disesuaikan dengan atribut "deskripsi" pada JSON -->
+                        <p class="text-[11px] text-gray-400 font-semibold mb-0.5">DESKRIPSI PRODUK</p>
+                        <p id="res-name" class="text-[13px] font-bold text-gray-800 truncate" title="">-</p>
                     </div>
                     <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                        <p class="text-[11px] text-gray-400 font-semibold mb-0.5">TANGGAL QC</p>
-                        <p id="res-date" class="text-[13px] font-bold text-gray-800">-</p>
+                        <!-- Disesuaikan dengan atribut "tdk" pada JSON -->
+                        <p class="text-[11px] text-gray-400 font-semibold mb-0.5">NOMOR TDK</p>
+                        <p id="res-date" class="text-[13px] font-bold text-gray-800 truncate" title="">-</p>
                     </div>
                 </div>
 
                 <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
-                    <p class="text-[11px] text-[#1a337e] font-bold mb-1">KETERANGAN / DESKRIPSI</p>
+                    <!-- Disesuaikan dengan atribut "notasi" pada JSON -->
+                    <p class="text-[11px] text-[#1a337e] font-bold mb-1">NOTASI SUSUNAN</p>
                     <p id="res-desc" class="text-[13px] text-gray-600 leading-relaxed text-justify">-</p>
                 </div>
             </div>
@@ -188,37 +191,28 @@
                 
                 const jsonData = await response.json();
                 
-                // --- LOGIKA PENCARIAN PINTAR ---
-                // Kita mencari key (kode MID) di deskripsi.json yang berisi atau cocok dengan kata kunci input
-                let matchedKey = null;
+                // Mendapatkan daftar records sesuai format output dari Pallet Database Builder
+                const records = jsonData.records || [];
+                
                 let matchedData = null;
 
-                // 1. Coba kecocokan langsung (exact match)
-                if (jsonData[inputVal]) {
-                    matchedKey = inputVal;
-                    matchedData = jsonData[inputVal];
-                } else {
-                    // 2. Coba cari apakah inputVal merupakan bagian dari key yang dipisahkan spasi di JSON
-                    // Misalnya input "61171" mencari kunci "61171 61531 62239 62740 1061171 1062740"
-                    for (const key in jsonData) {
-                        const subCodes = key.split(/\s+/); // memisahkan berdasarkan spasi
-                        if (subCodes.includes(inputVal)) {
-                            matchedKey = key;
-                            matchedData = jsonData[key];
-                            break;
-                        }
-                    }
-                }
+                // 1. Mencari object record yang mid-nya cocok
+                matchedData = records.find(item => {
+                    if (!item.mid) return false;
+                    // Memisahkan MID berdasarkan spasi atau koma jika suatu TDK punya banyak MID
+                    const subCodes = item.mid.split(/[\s,]+/); 
+                    return subCodes.includes(inputVal);
+                });
 
                 setTimeout(() => {
                     setLoading(false);
                     
                     if (matchedData) {
                         // Menampilkan hasil pencarian yang cocok
-                        showResult(matchedData, inputVal, matchedKey);
+                        showResult(matchedData, inputVal);
                         addToHistory(inputVal);
                     } else {
-                        showError(`Kode <strong>${inputVal}</strong> tidak terdaftar atau tidak ditemukan dalam berkas deskripsi.json.`);
+                        showError(`Kode MID <strong>${inputVal}</strong> tidak terdaftar atau tidak ditemukan dalam berkas deskripsi.json.`);
                     }
                 }, 400);
 
@@ -229,16 +223,26 @@
             }
         });
 
-        function showResult(data, searchInput, matchedKey) {
-            // Menampilkan data deskripsi
-            document.getElementById('res-id').innerText = `${searchInput} (Grup: ${matchedKey})`;
-            document.getElementById('res-name').innerText = data.nama || 'Unit Pabrikasi';
-            document.getElementById('res-date').innerText = data.tanggal || '-';
-            document.getElementById('res-desc').innerText = data.deskripsi || 'Keterangan tidak tersedia untuk unit ini.';
+        function showResult(data, searchInput) {
+            // Menampilkan data berdasarkan mapping format export TDK JSON
+            document.getElementById('res-id').innerText = data.mid || searchInput;
+            
+            // Nama / Deskripsi produk
+            const productName = data.deskripsi || '-';
+            document.getElementById('res-name').innerText = productName;
+            document.getElementById('res-name').title = productName;
+            
+            // Nomor TDK
+            const tdkNumber = data.tdk || '-';
+            document.getElementById('res-date').innerText = tdkNumber;
+            document.getElementById('res-date').title = tdkNumber;
+            
+            // Notasi susunan
+            document.getElementById('res-desc').innerText = data.notasi || 'Keterangan susunan pallet tidak tersedia.';
             
             // --- PENANGANAN GAMBAR ---
-            // Mengambil nama berkas gambar dari json. Jika kosong, gunakan nama key sebagai nama file gambar + '.jpg'
-            let fileName = data.gambar || `${matchedKey}.jpg`;
+            // Mengambil nama berkas gambar. Format JSON TDK menggunakan key "img"
+            let fileName = data.img || `${searchInput}.png`;
             
             // Merangkai URL gambar ke dalam folder "images/" di repositori Anda
             let imagePath = `images/${fileName}`;
@@ -255,11 +259,11 @@
             resultSection.classList.add('fade-in');
         }
 
-        // Jalankan fungsi ini jika gambar gagal dimuat (misal ekstensi berbeda atau salah ketik nama)
+        // Jalankan fungsi ini jika gambar gagal dimuat (misal belum diexport / salah path)
         function handleImageError(image) {
             image.onerror = null; 
-            // Menggunakan gambar default mesin modern jika file gambar tidak ditemukan
-            image.src = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"; 
+            // Menggunakan placeholder bila gambar tidak ada
+            image.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia"; 
         }
 
         function hideResult() {
