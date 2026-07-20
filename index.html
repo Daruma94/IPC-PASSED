@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,119 +10,362 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #f3f8fc; min-height: 100vh; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #f3f8fc; 
+            min-height: 100vh; 
+        }
         .card-shadow { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #1a337e; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Animasi Fade In */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Efek Bingkai Kaca (Glassmorphism) pada Gambar */
+        .glass-frame {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .glass-frame:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+        }
+        .glass-frame img {
+            border-radius: 12px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Modal Image Viewer */
+        #image-modal {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Custom Scrollbar untuk riwayat */
+        .history-scroll::-webkit-scrollbar { height: 4px; }
+        .history-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .history-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body class="flex items-center justify-center p-4">
+<body class="flex items-center justify-center p-4 py-8">
 
-    <div class="bg-white rounded-[32px] card-shadow w-full max-w-[420px] p-8 transition-all duration-300" id="main-card">
+    <div class="bg-white rounded-[32px] card-shadow w-full max-w-[420px] p-8 transition-all duration-300 relative" id="main-card">
         
-        <!-- BAGIAN PENCARIAN -->
-        <div id="search-section">
-            <div class="flex flex-col items-center mt-4">
-    <div class="inline-flex flex-col items-center">
-
-        <!-- Garis -->
-        <div class="w-full h-[5px] bg-[#1a337e] rounded-full mb-2"></div>
-
-        <!-- Logo -->
-        <h1 class="text-6xl font-black text-[#1a337e] tracking-tighter leading-none">
-            MIM
-        </h1>
-
-        <!-- Manufacturing -->
-        <div class="mt-2 w-full bg-[#1a337e] text-white text-center text-[9px] font-bold py-[3px] tracking-[0.25em] rounded-sm">
-            MANUFACTURING
-        </div>
-
-    </div>
-</div>
-
-            <div class="mt-8 mb-6 text-center">
-                <h2 class="text-[20px] font-black text-[#1a2b5e] tracking-wide mb-2">QUALITY PASSED</h2>
-                <p class="text-gray-500 text-[13px] leading-relaxed px-2">Masukkan kode MID untuk mengakses spesifikasi unit</p>
-            </div>
-
-            <form id="search-form" class="space-y-4">
-                <div class="relative flex items-center">
-                    <i class="fa-solid fa-inbox absolute left-4 text-gray-400"></i>
-                    <input type="text" id="mid-input" required class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#1a337e] text-sm text-gray-700 transition-all" placeholder="Masukkan nomor MID...">
+        <!-- BAGIAN HEADER LOGO -->
+        <div class="flex flex-col items-center mt-2">
+            <div class="inline-flex flex-col items-center">
+                <!-- Garis -->
+                <div class="w-full h-[5px] bg-[#1a337e] rounded-full mb-2"></div>
+                <!-- Logo -->
+                <h1 class="text-6xl font-black text-[#1a337e] tracking-tighter leading-none">MIM</h1>
+                <!-- Manufacturing -->
+                <div class="mt-2 w-full bg-[#1a337e] text-white text-center text-[9px] font-bold py-[3px] tracking-[0.25em] rounded-sm">
+                    MANUFACTURING
                 </div>
-                <button type="submit" class="w-full bg-[#1a337e] hover:bg-[#12245a] text-white font-semibold py-3.5 rounded-xl flex justify-center items-center gap-2 transition-all text-[15px]">
-                    <i class="fa-solid fa-magnifying-glass"></i> Cari
-                </button>
-            </form>
+            </div>
         </div>
 
-        <!-- BAGIAN HASIL -->
-        <div id="result-section" class="hidden flex-col items-center">
-            <h2 class="text-lg font-black text-[#1a2b5e] mb-4" id="result-title">MID: -</h2>
-            <div class="w-full aspect-square bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center overflow-hidden mb-6 relative">
-                <div id="loading-indicator" class="flex flex-col items-center gap-2"><div class="loader"></div></div>
-                <img id="result-image" src="" alt="Unit Image" class="w-full h-full object-contain hidden">
-                <div id="error-message" class="hidden text-gray-500 text-sm p-4 text-center"><i class="fa-solid fa-circle-xmark text-red-400 text-2xl mb-2"></i><br>Gambar tidak ditemukan</div>
+        <div class="mt-6 mb-6 text-center">
+            <h2 class="text-[20px] font-black text-[#1a2b5e] tracking-wide mb-2">QUALITY PASSED</h2>
+            <p class="text-gray-500 text-[13px] leading-relaxed px-2">Masukkan kode MID untuk mengakses spesifikasi unit</p>
+        </div>
+
+        <!-- FORM PENCARIAN -->
+        <form id="search-form" class="space-y-4">
+            <div class="relative flex items-center">
+                <i class="fa-solid fa-inbox absolute left-4 text-gray-400"></i>
+                <input type="text" id="mid-input" required autocomplete="off" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#1a337e] text-sm text-gray-700 transition-all font-medium uppercase" placeholder="Contoh: MID-001">
             </div>
-            <button id="btn-back" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl transition-all text-sm">Kembali</button>
+            
+            <!-- Notifikasi Error (Custom Alert) -->
+            <div id="error-card" class="hidden bg-red-50 border border-red-200 text-red-600 rounded-xl p-3 text-sm flex items-start gap-3 fade-in">
+                <i class="fa-solid fa-circle-exclamation mt-0.5 text-red-500"></i>
+                <div>
+                    <strong class="block font-semibold">Gagal Menemukan Data</strong>
+                    <span id="error-message" class="text-xs">Kode MID tidak terdaftar dalam sistem.</span>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full bg-[#1a337e] hover:bg-[#12245a] text-white font-semibold py-3.5 rounded-xl flex justify-center items-center gap-2 transition-all text-[15px]">
+                <i class="fa-solid fa-magnifying-glass" id="btn-icon"></i> 
+                <span id="btn-text">Cari Unit</span>
+            </button>
+        </form>
+
+        <!-- RIWAYAT PENCARIAN -->
+        <div id="history-section" class="mt-6 hidden">
+            <p class="text-[11px] text-gray-400 font-semibold mb-2 uppercase tracking-wider">Riwayat Terakhir</p>
+            <div class="flex gap-2 overflow-x-auto history-scroll pb-2" id="history-list">
+                <!-- Chip riwayat akan di-generate di sini -->
+            </div>
+        </div>
+
+        <!-- HASIL PENCARIAN (Awalnya disembunyikan) -->
+        <div id="result-section" class="hidden mt-6 pt-6 border-t border-gray-100">
+            <div class="text-center mb-4">
+                <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full"><i class="fa-solid fa-check-circle mr-1"></i> VALIDATED</span>
+            </div>
+            
+            <!-- Gambar dengan efek kaca -->
+            <div class="glass-frame mb-5" onclick="openModal()">
+                <img id="res-image" src="" alt="Unit Image">
+                <div class="text-center mt-2 text-[10px] text-gray-500 font-medium">
+                    <i class="fa-solid fa-expand mr-1"></i> Klik gambar untuk memperbesar
+                </div>
+            </div>
+
+            <!-- Data Spesifikasi -->
+            <div class="space-y-3">
+                <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                    <p class="text-[11px] text-gray-400 font-semibold mb-0.5">KODE MID</p>
+                    <p id="res-id" class="text-[15px] font-bold text-[#1a2b5e] uppercase">-</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <p class="text-[11px] text-gray-400 font-semibold mb-0.5">NAMA UNIT</p>
+                        <p id="res-name" class="text-[13px] font-bold text-gray-800 truncate">-</p>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <p class="text-[11px] text-gray-400 font-semibold mb-0.5">TANGGAL QC</p>
+                        <p id="res-date" class="text-[13px] font-bold text-gray-800">-</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                    <p class="text-[11px] text-[#1a337e] font-bold mb-1">KETERANGAN / DESKRIPSI</p>
+                    <p id="res-desc" class="text-[13px] text-gray-600 leading-relaxed text-justify">-</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GAMBAR FULLSCREEN -->
+    <div id="image-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/60 transition-opacity opacity-0">
+        <div class="relative w-full max-w-2xl bg-white rounded-2xl p-2 shadow-2xl transform scale-95 transition-transform" id="modal-content">
+            <button onclick="closeModal()" class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="modal-image" src="" class="w-full rounded-xl" alt="Full Image">
         </div>
     </div>
 
     <script>
-        // Daftar file yang ada di folder images/ Anda
-        const imageFiles = [
-            "1062739 61530.jpg",
-            "61170 61529 62237 62739.jpg",
-            "61171 61531 62239 62740 1061171 1062740.jpg",
-            "61172.jpg",
-            "61895 63244.jpg",
-            "62654.jpg",
-            "62748 62749.jpg",
-            "62750 62751.jpg",
-            "62787 62788.jpg",
-            "62984.jpg",
-            "63073 1063073.jpg",
-            "63462.jpg"
-        ];
+        // Data Dummy (Digunakan sebagai fallback jika deskripsi.json tidak ditemukan)
+        const dummyData = {
+            "MID-001": {
+                "id": "MID-001",
+                "nama": "Generator X-Treme 500",
+                "tanggal": "20 Juli 2026",
+                "deskripsi": "Unit telah lulus uji beban maksimum selama 48 jam nonstop. Kompresor berfungsi optimal pada tekanan tinggi tanpa ada indikasi kebocoran. Siap didistribusikan ke klien.",
+                "gambar": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
+            },
+            "MID-002": {
+                "id": "MID-002",
+                "nama": "Turbine Alpha V2",
+                "tanggal": "19 Juli 2026",
+                "deskripsi": "Inspeksi visual menunjukkan kondisi body 100% mulus. Sistem kelistrikan stabil dan modul sensor terkalibrasi dengan akurasi 99.9%. Quality control tahap akhir disetujui.",
+                "gambar": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=80"
+            },
+            "MID-003": {
+                "id": "MID-003",
+                "nama": "Robotic Arm Z-Series",
+                "tanggal": "15 Juli 2026",
+                "deskripsi": "Kalibrasi sumbu rotasi berhasil dilakukan. Tingkat presisi mencapai toleransi standar industri manufaktur. Terdapat sedikit goresan pada cat dasar (base) namun tidak mempengaruhi performa mekanis.",
+                "gambar": "https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=800&q=80"
+            }
+        };
 
-        const form = document.getElementById('search-form');
-        const input = document.getElementById('mid-input');
-        const searchSection = document.getElementById('search-section');
-        const resultSection = document.getElementById('result-section');
-        const img = document.getElementById('result-image');
-        const loader = document.getElementById('loading-indicator');
-        const error = document.getElementById('error-message');
+        // State Array untuk Riwayat Pencarian
+        let searchHistory = [];
 
-        form.addEventListener('submit', (e) => {
+        document.getElementById('search-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const val = input.value.trim();
-            const match = imageFiles.find(f => f.includes(val));
-
-            searchSection.classList.add('hidden');
-            resultSection.classList.remove('hidden');
-            resultSection.classList.add('flex');
             
-            img.classList.add('hidden');
-            error.classList.add('hidden');
-            loader.classList.remove('hidden');
+            const inputVal = document.getElementById('mid-input').value.trim().toUpperCase();
+            if(!inputVal) return;
 
-            if (match) {
-                document.getElementById('result-title').textContent = "MID: " + val;
-                img.src = "images/" + match;
-            } else {
-                loader.classList.add('hidden');
-                error.classList.remove('hidden');
+            // Reset UI
+            hideError();
+            hideResult();
+            setLoading(true);
+
+            try {
+                let data = null;
+
+                // MCOBA MENGAMBIL DARI deskripsi.json
+                // Catatan: Jika dijalankan secara lokal (file://) ini mungkin akan error CORS,
+                // sehingga akan langsung masuk ke blok catch atau menggunakan dummyData.
+                try {
+                    const response = await fetch('deskripsi.json');
+                    if (response.ok) {
+                        const jsonData = await response.json();
+                        // Asumsikan struktur JSON seperti dummyData
+                        data = jsonData[inputVal]; 
+                    } else {
+                        throw new Error("File JSON tidak ditemukan, beralih ke dummy data");
+                    }
+                } catch (fetchError) {
+                    console.log("Menggunakan data dummy lokal karena: ", fetchError.message);
+                    data = dummyData[inputVal];
+                }
+
+                // Jeda simulasi loading (untuk UX agar tidak terlalu cepat)
+                setTimeout(() => {
+                    setLoading(false);
+                    
+                    if (data) {
+                        showResult(data);
+                        addToHistory(inputVal);
+                    } else {
+                        showError(`Data dengan kode <strong>${inputVal}</strong> tidak ditemukan.`);
+                    }
+                }, 600); 
+
+            } catch (error) {
+                setLoading(false);
+                showError("Terjadi kesalahan sistem saat memuat data.");
             }
         });
 
-        img.onload = () => { loader.classList.add('hidden'); img.classList.remove('hidden'); };
-        img.onerror = () => { loader.classList.add('hidden'); error.classList.remove('hidden'); };
-        document.getElementById('btn-back').onclick = () => {
-            resultSection.classList.add('hidden');
-            searchSection.classList.remove('hidden');
-            input.value = '';
-        };
+        function showResult(data) {
+            // Isi data ke DOM
+            document.getElementById('res-id').innerText = data.id;
+            document.getElementById('res-name').innerText = data.nama || '-';
+            document.getElementById('res-date').innerText = data.tanggal || '-';
+            document.getElementById('res-desc').innerText = data.deskripsi || '-';
+            
+            // Set Gambar
+            const imgEl = document.getElementById('res-image');
+            const modalImgEl = document.getElementById('modal-image');
+            imgEl.src = data.gambar;
+            modalImgEl.src = data.gambar;
+
+            // Tampilkan dengan animasi (menambahkan ulang class fade-in agar ter-trigger lagi)
+            const resultSection = document.getElementById('result-section');
+            resultSection.classList.remove('hidden', 'fade-in');
+            void resultSection.offsetWidth; // Trigger reflow (penting untuk merestart animasi CSS)
+            resultSection.classList.add('fade-in');
+        }
+
+        function hideResult() {
+            document.getElementById('result-section').classList.add('hidden');
+        }
+
+        function showError(msg) {
+            const errorCard = document.getElementById('error-card');
+            document.getElementById('error-message').innerHTML = msg;
+            
+            errorCard.classList.remove('hidden', 'fade-in');
+            void errorCard.offsetWidth; // Trigger reflow
+            errorCard.classList.add('fade-in');
+        }
+
+        function hideError() {
+            document.getElementById('error-card').classList.add('hidden');
+        }
+
+        function setLoading(isLoading) {
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+            const btn = document.getElementById('submit-btn');
+
+            if (isLoading) {
+                btn.disabled = true;
+                btn.classList.add('opacity-80', 'cursor-not-allowed');
+                btnIcon.className = "fa-solid fa-circle-notch fa-spin";
+                btnText.innerText = "Mencari...";
+            } else {
+                btn.disabled = false;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                btnIcon.className = "fa-solid fa-magnifying-glass";
+                btnText.innerText = "Cari Unit";
+            }
+        }
+
+        function addToHistory(mid) {
+            // Hapus jika sudah ada (agar tidak duplikat), lalu taruh di awal
+            searchHistory = searchHistory.filter(item => item !== mid);
+            searchHistory.unshift(mid);
+            
+            // Batasi maksimal 5 riwayat
+            if (searchHistory.length > 5) searchHistory.pop();
+            
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const historySec = document.getElementById('history-section');
+            const historyList = document.getElementById('history-list');
+            
+            if (searchHistory.length === 0) {
+                historySec.classList.add('hidden');
+                return;
+            }
+
+            historySec.classList.remove('hidden');
+            historyList.innerHTML = '';
+
+            searchHistory.forEach(mid => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.className = 'flex-shrink-0 bg-blue-50 text-[#1a337e] border border-blue-200 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors whitespace-nowrap';
+                chip.innerHTML = `<i class="fa-solid fa-clock-rotate-left mr-1 opacity-70"></i> ${mid}`;
+                
+                chip.onclick = () => {
+                    document.getElementById('mid-input').value = mid;
+                    document.getElementById('submit-btn').click(); // trigger submit
+                };
+
+                historyList.appendChild(chip);
+            });
+        }
+
+        // --- Logika Modal Gambar ---
+        const modal = document.getElementById('image-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            // Sedikit delay agar transisi opasitas terlihat
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            // Tunggu animasi CSS selesai baru disembunyikan
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Tutup modal jika mengklik area luar gambar
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
