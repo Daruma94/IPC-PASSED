@@ -44,12 +44,21 @@
 
     <div class="glass-card w-full max-w-4xl rounded-[3rem] p-8 sm:p-12 md:p-16 text-center relative overflow-hidden">
         
-        <!-- Bagian Logo MIM -->
+        <!-- Bagian Logo MIM (Lebar garis atas, teks, dan kotak bawah diselaraskan sempurna) -->
         <div class="flex flex-col items-center justify-center mb-10">
-            <div class="w-32 sm:w-36 h-2.5 sm:h-3 bg-[#203a85] rounded-sm mb-1.5"></div>
-            <div class="text-[#203a85] font-black text-6xl sm:text-7xl md:text-8xl leading-none tracking-tight">MIM</div>
-            <div class="bg-[#203a85] text-white text-[9px] sm:text-[10px] md:text-xs font-bold px-3 py-1.5 sm:py-2 mt-1.5 tracking-[0.25em] rounded-sm">
-                MANUFACTURING
+            <div class="inline-flex flex-col items-stretch w-fit">
+                <!-- Garis atas (Lebar otomatis mengikuti teks MIM di bawahnya) -->
+                <div class="h-2.5 sm:h-3 bg-[#203a85] rounded-sm mb-2 w-full"></div>
+                
+                <!-- Teks MIM -->
+                <div class="text-[#203a85] font-black text-6xl sm:text-7xl md:text-8xl leading-none tracking-tight text-center">
+                    MIM
+                </div>
+                
+                <!-- Kotak bawah MANUFACTURING (Lebar otomatis mengikuti teks MIM) -->
+                <div class="bg-[#203a85] text-white text-[9px] sm:text-[10px] md:text-xs font-bold py-1.5 sm:py-2 mt-2 tracking-[0.25em] rounded-sm text-center uppercase pl-[0.25em]">
+                    MANUFACTURING
+                </div>
             </div>
         </div>
 
@@ -173,22 +182,17 @@
 
             // Simulasi loading sebentar agar terasa seperti aplikasi sungguhan (0.8 detik)
             setTimeout(() => {
-                // 2. Cek apakah ada di data dummy (untuk contoh)
                 if (dummyData[midValue]) {
                     tampilkanHasil(midValue, dummyData[midValue].img, dummyData[midValue].spec);
                 } else {
-                    // 3. JIKA TIDAK ADA DI DUMMY: Kita coba panggil file gambar asli dari folder GitHub Anda
-                    // Asumsinya Anda menyimpan gambar di folder "images" dengan ekstensi .jpg (misal: images/12345.jpg)
                     const imageUrl = `images/${midValue}.jpg`;
                     const imgTest = new Image();
                     
                     imgTest.onload = function() {
-                        // Jika gambar ditemukan di folder
                         tampilkanHasil(midValue, imageUrl, `Unit MID ${midValue} telah melewati pengecekan kualitas standar pabrik dan siap digunakan.`);
                     };
                     
                     imgTest.onerror = function() {
-                        // Jika gambar gagal dimuat (file tidak ada)
                         tampilkanError(midValue);
                     };
                     
@@ -199,13 +203,9 @@
 
         function tampilkanHasil(mid, imgUrl, specText) {
             statusMessage.classList.add('hidden');
-            
-            // Isi data ke dalam HTML
             resultMid.textContent = mid;
             resultImg.src = imgUrl;
             resultSpec.textContent = specText;
-            
-            // Tampilkan kontainer hasil
             resultContainer.classList.remove('hidden');
         }
 
@@ -220,7 +220,7 @@
         historyBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 midInput.value = btn.textContent.trim();
-                searchForm.dispatchEvent(new Event('submit')); // Otomatis cari saat diklik
+                searchForm.dispatchEvent(new Event('submit'));
             });
         });
     </script>
