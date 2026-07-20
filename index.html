@@ -170,7 +170,7 @@
                 
                 const matchedData = records.find(item => {
                     if (!item.mid) return false;
-                    const subCodes = item.mid.split(/[\s,]+/); 
+                    const subCodes = String(item.mid).split(/[\s,]+/); 
                     return subCodes.includes(inputVal);
                 });
 
@@ -204,8 +204,8 @@
                 fileName += '.png';
             }
             
-            // Path folder images di GitHub
-            let imagePath = `images/${fileName}`;
+            // Path folder images di GitHub: image/
+            let imagePath = `image/${fileName}`;
 
             const imgEl = document.getElementById('res-image');
             const modalImgEl = document.getElementById('modal-image');
