@@ -35,6 +35,8 @@
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         .glass-frame:hover {
             transform: scale(1.02);
@@ -46,6 +48,7 @@
             height: 220px;
             object-fit: contain;
             background-color: rgba(255, 255, 255, 0.5);
+            transition: opacity 0.3s ease;
         }
 
         #image-modal {
@@ -56,12 +59,28 @@
         .history-scroll::-webkit-scrollbar { height: 4px; }
         .history-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .history-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        /* Shimmer loading effect */
+        .shimmer {
+            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+            background-size: 200% 100%;
+            animation: loading-shimmer 1.5s infinite;
+        }
+        @keyframes loading-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
     </style>
 </head>
 <body class="flex items-center justify-center p-4 py-8">
 
     <div class="bg-white rounded-[32px] card-shadow w-full max-w-[420px] p-8 transition-all duration-300 relative" id="main-card">
         
+        <!-- Tombol Pengaturan Path Gambar (Top Right) -->
+        <button onclick="openSettingsModal()" class="absolute top-6 right-6 text-gray-400 hover:text-[#1a337e] transition-colors" title="Pengaturan Path Gambar & Debugger">
+            <i class="fa-solid fa-sliders text-xl"></i>
+        </button>
+
         <div class="flex flex-col items-center mt-2">
             <div class="inline-flex flex-col items-center">
                 <div class="w-full h-[5px] bg-[#1a337e] rounded-full mb-2"></div>
@@ -109,10 +128,19 @@
             </div>
             
             <div class="glass-frame mb-5" onclick="openModal()">
-                <img id="res-image" src="" alt="Unit Image" onerror="handleImageError(this)">
+                <!-- Shimmer Loading Indicator inside Image Frame -->
+                <div id="img-loader" class="absolute inset-0 shimmer flex items-center justify-center rounded-xl">
+                    <i class="fa-solid fa-circle-notch fa-spin text-[#1a337e] text-2xl"></i>
+                </div>
+                <img id="res-image" src="" alt="Unit Image" class="opacity-0" onload="handleImageLoaded()" onerror="handleImageError(this)">
                 <div class="text-center mt-2 text-[10px] text-gray-500 font-medium">
                     <i class="fa-solid fa-expand mr-1"></i> Klik gambar untuk memperbesar
                 </div>
+            </div>
+
+            <!-- Live Debugging Status (Informing path attempted) -->
+            <div id="debug-path-info" class="mb-4 bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-[10px] text-slate-500 font-mono break-all">
+                <span class="font-bold text-slate-700">URL Aktif:</span> <span id="debug-current-url">-</span>
             </div>
 
             <div class="space-y-3">
@@ -140,6 +168,44 @@
         </div>
     </div>
 
+    <!-- MODAL SETTINGS PATH -->
+    <div id="settings-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/50 backdrop-blur-sm transition-opacity opacity-0">
+        <div class="relative w-full max-w-sm bg-white rounded-2xl p-6 shadow-2xl transform scale-95 transition-transform" id="settings-content">
+            <button onclick="closeSettingsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-base font-bold text-[#1a2b5e] mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-gears text-blue-600"></i> Pengaturan Path Gambar
+            </h3>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1">FOLDER DIREKTORI UTAMA</label>
+                    <input type="text" id="setting-folder-path" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-xs font-mono focus:outline-none focus:border-[#1a337e]" placeholder="Contoh: image/ atau ./image/">
+                    <p class="text-[10px] text-gray-400 mt-1">Gunakan <code class="bg-slate-100 px-1 py-0.5 rounded">image/</code> (tanpa garis miring di depan) agar kompatibel dengan GitHub Pages sub-folder.</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 mb-1">FORCE EXTENSION</label>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="setting-force-extension" class="rounded border-gray-300 text-[#1a337e] focus:ring-[#1a337e]">
+                        <span class="text-xs text-gray-600">Paksa ekstensi selalu menggunakan .png</span>
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-gray-100">
+                    <button onclick="savePathSettings()" class="w-full bg-[#1a337e] hover:bg-[#12245a] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">
+                        Simpan & Terapkan
+                    </button>
+                    <button onclick="resetPathSettings()" class="w-full border border-gray-200 hover:bg-gray-50 text-gray-500 text-xs font-semibold py-2.5 rounded-lg mt-2 transition-colors">
+                        Kembalikan Default
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GAMBAR FULLSCREEN -->
     <div id="image-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/80 transition-opacity opacity-0">
         <div class="relative w-full max-w-2xl bg-white rounded-2xl p-2 shadow-2xl transform scale-95 transition-transform" id="modal-content">
             <button onclick="closeModal()" class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-colors">
@@ -150,45 +216,54 @@
     </div>
 
     <script>
+        // State Konfigurasi Path Gambar
+        let config = {
+            folderPath: localStorage.getItem('mim_folderPath') || 'image/',
+            forceExtension: localStorage.getItem('mim_forceExtension') !== 'false' // default true
+        };
+
         let searchHistory = [];
+        let currentRecord = null; // Menyimpan data record aktif saat ini
+        let fallbackAttempt = 0; // Melacak seberapa banyak percobaan pemuatan gambar
 
-        document.getElementById('search-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const inputVal = document.getElementById('mid-input').value.trim();
-            if(!inputVal) return;
-
-            hideError();
-            hideResult();
-            setLoading(true);
-
-            try {
-                const response = await fetch('deskripsi.json');
-                if (!response.ok) throw new Error("Gagal mengambil file deskripsi.json");
-                
-                const jsonData = await response.json();
-                const records = jsonData.records || [];
-                
-                const matchedData = records.find(item => {
-                    if (!item.mid) return false;
-                    const subCodes = String(item.mid).split(/[\s,]+/); 
-                    return subCodes.includes(inputVal);
-                });
-
-                setTimeout(() => {
-                    setLoading(false);
-                    if (matchedData) {
-                        showResult(matchedData, inputVal);
-                        addToHistory(inputVal);
-                    } else {
-                        showError(`Kode MID <strong>${inputVal}</strong> tidak terdaftar.`);
-                    }
-                }, 400);
-            } catch (error) {
-                setLoading(false);
-                showError("Gagal mengakses database. Pastikan file deskripsi.json tersedia.");
-                console.error(error);
+        function getImagePath(record, searchInput, attempt) {
+            // Safety guard to prevent crash if record is null
+            if (!record) return null;
+            
+            let fileName = record.img || `${searchInput}`;
+            
+            // Konfigurasi paksa ekstensi .png
+            if (config.forceExtension) {
+                if (!fileName.toLowerCase().endsWith('.png')) {
+                    // hapus ekstensi lama jika ada, paksa menjadi .png
+                    fileName = fileName.replace(/\.[^/.]+$/, "") + ".png";
+                }
             }
-        });
+
+            // Normalisasi folder path (pastikan diakhiri dengan /)
+            let baseDir = config.folderPath;
+            if (baseDir && !baseDir.endsWith('/')) {
+                baseDir += '/';
+            }
+
+            // Variasi fallback path untuk melompati proteksi folder lokal dan perbedaan server
+            if (attempt === 0) {
+                // Percobaan 1: Menggunakan path dasar kustom user (misal: image/filename.png)
+                return `${baseDir}${fileName}`;
+            } else if (attempt === 1) {
+                // Percobaan 2: Relatif penuh eksplisit (./image/filename.png)
+                return `./${baseDir}${fileName}`;
+            } else if (attempt === 2) {
+                // Percobaan 3: Menggunakan format absolut web root (/image/filename.png)
+                return `/${baseDir}${fileName}`;
+            } else if (attempt === 3) {
+                // Percobaan 4: Jika folder diganti secara manual ke lowercase/uppercase
+                return `Image/${fileName}`;
+            } else {
+                // Gagal semua: berikan penanda untuk dialihkan ke placeholder
+                return null;
+            }
+        }
 
         function showResult(data, searchInput) {
             document.getElementById('res-id').innerText = data.mid || searchInput;
@@ -196,22 +271,12 @@
             document.getElementById('res-date').innerText = data.tdk || '-';
             document.getElementById('res-desc').innerText = data.notasi || 'Keterangan tidak tersedia.';
             
-            // --- LOGIKA GAMBAR TAHAN BANTING ---
-            let fileName = data.img || `${searchInput}`;
-            
-            // Memastikan selalu memiliki ekstensi .png
-            if (!fileName.toLowerCase().endsWith('.png')) {
-                fileName += '.png';
-            }
-            
-            // Path folder images di GitHub: image/
-            let imagePath = `image/${fileName}`;
+            // Reset status muat gambar
+            fallbackAttempt = 0;
+            showImageLoader();
 
-            const imgEl = document.getElementById('res-image');
-            const modalImgEl = document.getElementById('modal-image');
-            
-            imgEl.src = imagePath;
-            modalImgEl.src = imagePath;
+            // Picu pemuatan gambar awal
+            triggerImageLoad(searchInput);
 
             const resultSection = document.getElementById('result-section');
             resultSection.classList.remove('hidden', 'fade-in');
@@ -219,9 +284,59 @@
             resultSection.classList.add('fade-in');
         }
 
+        function triggerImageLoad(searchInput) {
+            const imgEl = document.getElementById('res-image');
+            const modalImgEl = document.getElementById('modal-image');
+            
+            let resolvedUrl = getImagePath(currentRecord, searchInput, fallbackAttempt);
+            
+            if (resolvedUrl) {
+                console.log(`[Viewer TDK] Mencoba memuat gambar (Percobaan ${fallbackAttempt + 1}): ${resolvedUrl}`);
+                document.getElementById('debug-current-url').innerText = resolvedUrl;
+                imgEl.src = resolvedUrl;
+                modalImgEl.src = resolvedUrl;
+            } else {
+                // Seluruh alternatif fallback habis, tampilkan placeholder default
+                console.warn("[Viewer TDK] Seluruh path alternatif gagal dimuat. Menampilkan placeholder.");
+                document.getElementById('debug-current-url').innerText = "Gagal memuat seluruh variasi URL (404)";
+                imgEl.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia";
+                modalImgEl.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia";
+            }
+        }
+
+        function handleImageLoaded() {
+            hideImageLoader();
+            const imgEl = document.getElementById('res-image');
+            imgEl.classList.remove('opacity-0');
+        }
+
         function handleImageError(image) {
-            image.onerror = null; 
-            image.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia"; 
+            // Safety guard: If no search has been made yet, ignore default empty src load failures
+            if (!currentRecord) return;
+
+            // Jika terjadi kegagalan pemuatan, otomatis naikkan tingkatan fallback
+            fallbackAttempt++;
+            const inputVal = document.getElementById('mid-input').value.trim();
+            
+            if (fallbackAttempt < 5) {
+                // Coba path cadangan berikutnya
+                triggerImageLoad(inputVal);
+            } else {
+                // Memang benar-benar tidak ditemukan gambarnya
+                image.onerror = null; 
+                image.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia"; 
+                document.getElementById('modal-image').src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia";
+                hideImageLoader();
+            }
+        }
+
+        function showImageLoader() {
+            document.getElementById('img-loader').classList.remove('hidden');
+            document.getElementById('res-image').classList.add('opacity-0');
+        }
+
+        function hideImageLoader() {
+            document.getElementById('img-loader').classList.add('hidden');
         }
 
         function hideResult() { document.getElementById('result-section').classList.add('hidden'); }
@@ -280,6 +395,7 @@
             });
         }
 
+        // Modal Zoom Control
         const modal = document.getElementById('image-modal');
         const modalContent = document.getElementById('modal-content');
 
@@ -300,6 +416,58 @@
         }
 
         modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+
+        // Modal Settings Control
+        const settingsModal = document.getElementById('settings-modal');
+        const settingsContent = document.getElementById('settings-content');
+
+        function openSettingsModal() {
+            document.getElementById('setting-folder-path').value = config.folderPath;
+            document.getElementById('setting-force-extension').checked = config.forceExtension;
+
+            settingsModal.classList.remove('hidden');
+            setTimeout(() => {
+                settingsModal.classList.remove('opacity-0');
+                settingsContent.classList.remove('scale-95');
+                settingsContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeSettingsModal() {
+            settingsModal.classList.add('opacity-0');
+            settingsContent.classList.remove('scale-100');
+            settingsContent.classList.add('scale-95');
+            setTimeout(() => { settingsModal.classList.add('hidden'); }, 300);
+        }
+
+        function savePathSettings() {
+            const rawPath = document.getElementById('setting-folder-path').value.trim();
+            config.folderPath = rawPath || 'image/';
+            config.forceExtension = document.getElementById('setting-force-extension').checked;
+
+            localStorage.setItem('mim_folderPath', config.folderPath);
+            localStorage.setItem('mim_forceExtension', config.forceExtension);
+
+            closeSettingsModal();
+
+            // Jalankan pencarian ulang secara otomatis jika data sedang aktif ditampilkan
+            const activeInput = document.getElementById('mid-input').value.trim();
+            if (activeInput && currentRecord) {
+                showResult(currentRecord, activeInput);
+            }
+        }
+
+        function resetPathSettings() {
+            localStorage.removeItem('mim_folderPath');
+            localStorage.removeItem('mim_forceExtension');
+            config.folderPath = 'image/';
+            config.forceExtension = true;
+            
+            document.getElementById('setting-folder-path').value = 'image/';
+            document.getElementById('setting-force-extension').checked = true;
+            
+            savePathSettings();
+        }
     </script>
 </body>
 </html>
