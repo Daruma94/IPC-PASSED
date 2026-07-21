@@ -50,12 +50,17 @@
         <!-- BAGIAN ATAS (SELALU TAMPIL)                -->
         <!-- ========================================== -->
         
-        <!-- Logo Area -->
+        <!-- Logo Area (Sejajar Garis Atas & Kotak Bawah) -->
         <div class="flex flex-col items-center mt-2 mb-10">
-            <div class="w-24 h-2 bg-[#1e3a8a] mb-2 rounded-sm"></div>
-            <h1 class="text-6xl font-black logo-text tracking-tighter leading-none mb-1">MIM</h1>
-            <div class="logo-bg text-white text-[9px] font-bold tracking-[0.25em] px-4 py-1.5 rounded-sm">
-                MANUFACTURING
+            <div class="flex flex-col items-center w-40">
+                <!-- Garis Atas -->
+                <div class="w-full h-2 bg-[#1e3a8a] mb-2 rounded-sm"></div>
+                <!-- Teks Utama MIM -->
+                <h1 class="text-6xl font-black logo-text tracking-tighter leading-none my-1 text-center">MIM</h1>
+                <!-- Label Bawah (Lebar presisi sejajar garis atas) -->
+                <div class="w-full logo-bg text-white text-[9px] font-bold tracking-[0.22em] py-1.5 rounded-sm text-center">
+                    MANUFACTURING
+                </div>
             </div>
         </div>
 
@@ -122,7 +127,7 @@
                 </span>
             </div>
 
-            <!-- Kontainer Cards (Akan bertambah sesuai jumlah hasil) -->
+            <!-- Kontainer Cards -->
             <div id="res-container" class="space-y-6 w-full">
                 <!-- Konten di-inject JS -->
             </div>
@@ -156,7 +161,7 @@
             
             // Konfigurasi
             const CONFIG = {
-                jsonPath: './deskripsi.json', // Pastikan posisinya sejajar di Github
+                jsonPath: './deskripsi.json',
                 imageFolder: './images/',
                 maxHistory: 4
             };
@@ -237,7 +242,6 @@
 
             // Fungsi untuk mengatur elemen mana yang tampil di bagian bawah
             function showState(stateName) {
-                // Sembunyikan semua konten dinamis dulu
                 el.viewLoading.classList.add('hidden');
                 el.viewLoading.classList.remove('flex');
                 el.viewResult.classList.add('hidden');
@@ -245,12 +249,9 @@
                 el.viewError.classList.add('hidden');
                 el.viewError.classList.remove('flex');
 
-                el.divider.classList.remove('hidden'); // Selalu tampilkan garis jika ada aksi
+                el.divider.classList.remove('hidden');
                 
-                // Sembunyikan history agar tampilan lebih bersih saat ada hasil
-                if(stateName === 'loading') {
-                    // Biarkan history saat loading
-                } else {
+                if(stateName !== 'loading') {
                     el.historySection.classList.add('hidden'); 
                 }
 
@@ -271,7 +272,6 @@
             async function fetchData() {
                 if (allDataCache) return allDataCache;
                 try {
-                    // Tambahkan parameter time agar Github Pages tidak nge-cache JSON lama
                     const url = `${CONFIG.jsonPath}?t=${new Date().getTime()}`;
                     const response = await fetch(url);
                     
@@ -282,7 +282,6 @@
                     return allDataCache;
                 } catch (error) {
                     console.error("Fetch Data Gagal:", error);
-                    // Fallback ke data minimum jika di github error
                     return getFallbackData();
                 }
             }
@@ -296,29 +295,21 @@
                     return;
                 }
 
-                // Tutup keyboard di HP saat mencari
                 el.input.blur();
-
-                // 1. Tampilkan status Loading
                 showState('loading');
-                
-                // Scroll ke area loading
                 el.viewLoading.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
                 try {
-                    // 2. Ambil data
                     const records = await fetchData();
-                    
-                    // Delay buatan 500ms agar user melihat transisi loading
                     await new Promise(r => setTimeout(r, 500));
 
-                    // 3. Cari Data
                     const matches = records.filter(record => record.mid === mid);
 
                     if (matches.length > 0) {
-                        renderResult(mid, matches);
+                        // Hanya menampilkan 1 item pertama agar tidak ganda
+                        renderResult(mid, [matches[0]]);
                         saveHistory(mid);
-                        renderHistory(); // Update history UI
+                        renderHistory();
                         showState('result');
                     } else {
                         el.errMid.textContent = mid;
@@ -401,7 +392,7 @@
                 });
             }
 
-            // Data darurat jika fetch Github JSON terblokir
+            // Data darurat
             function getFallbackData() {
                 return [
                     { "mid": "80888", "deskripsi": "SKL Sachet 22 g 12+1", "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun", "tdk": "TDK/R&D/PAC/12/0", "img": "TDK_R_D_PAC_12_0.png" },
