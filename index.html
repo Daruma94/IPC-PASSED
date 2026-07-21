@@ -12,26 +12,12 @@
             background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #f8fafc 100%);
             min-height: 100vh;
             margin: 0;
+            padding: 1.5rem 1rem;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 1rem;
+            align-items: flex-start; /* Ubah ke flex-start agar bisa scroll alami */
         }
         
-        /* Animasi Transisi Halaman */
-        .page-enter { animation: fadeIn 0.4s ease-out forwards; }
-        .page-exit { animation: fadeOut 0.3s ease-in forwards; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); display: none; }
-        }
-
-        /* Styling spesifik untuk menyamai desain */
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,1);
@@ -44,123 +30,115 @@
             border: 1px solid #f1f5f9;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        
-        /* Custom Scrollbar untuk hasil */
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animasi Muncul Halus */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased text-gray-800">
 
-    <!-- Container Utama -->
-    <div id="app-container" class="glass-card w-full max-w-[420px] h-[800px] max-h-[95vh] relative overflow-hidden flex flex-col p-6 sm:p-8 border border-white/50">
+    <!-- Container Utama (Tinggi otomatis menyesuaikan isi) -->
+    <div id="app-container" class="glass-card w-full max-w-[420px] min-h-[600px] flex flex-col p-6 sm:p-8 border border-white/50 mb-10 transition-all duration-500">
         
         <!-- ========================================== -->
-        <!-- HALAMAN AWAL (PENCARIAN)                   -->
+        <!-- BAGIAN ATAS (SELALU TAMPIL)                -->
         <!-- ========================================== -->
-        <div id="view-search" class="w-full flex flex-col h-full page-enter">
-            
-            <!-- Logo Area -->
-            <div class="flex flex-col items-center mt-6 mb-10">
-                <div class="w-24 h-2 bg-[#1e3a8a] mb-2 rounded-sm"></div>
-                <h1 class="text-6xl font-black logo-text tracking-tighter leading-none mb-1">MIM</h1>
-                <div class="logo-bg text-white text-[9px] font-bold tracking-[0.25em] px-4 py-1.5 rounded-sm">
-                    MANUFACTURING
-                </div>
+        
+        <!-- Logo Area -->
+        <div class="flex flex-col items-center mt-2 mb-10">
+            <div class="w-24 h-2 bg-[#1e3a8a] mb-2 rounded-sm"></div>
+            <h1 class="text-6xl font-black logo-text tracking-tighter leading-none mb-1">MIM</h1>
+            <div class="logo-bg text-white text-[9px] font-bold tracking-[0.25em] px-4 py-1.5 rounded-sm">
+                MANUFACTURING
             </div>
+        </div>
 
-            <!-- Header Text -->
-            <div class="text-center mb-8">
-                <h2 class="text-[28px] leading-tight sm:text-3xl font-extrabold text-[#1a265a] mb-3 tracking-tight">QUALITY PASSED</h2>
-                <p class="text-gray-500 text-sm font-medium leading-relaxed px-2">
-                    Masukkan kode MID untuk mengakses detail spesifikasi dan gambar unit
-                </p>
-            </div>
+        <!-- Header Text -->
+        <div class="text-center mb-8">
+            <h2 class="text-[28px] leading-tight sm:text-3xl font-extrabold text-[#1a265a] mb-3 tracking-tight">QUALITY PASSED</h2>
+            <p class="text-gray-500 text-sm font-medium leading-relaxed px-2">
+                Masukkan kode MID untuk mengakses detail spesifikasi dan gambar unit
+            </p>
+        </div>
 
-            <!-- Input Area -->
-            <div class="relative mb-5">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <!-- Icon Box -->
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-                    </svg>
-                </div>
-                <input type="text" id="mid-input" 
-                    class="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 text-gray-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-lg placeholder-gray-400 bg-white/50"
-                    placeholder="Contoh: 80888" autocomplete="off">
-            </div>
-
-            <!-- Tombol Cari -->
-            <button id="btn-search" class="w-full btn-gradient text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex justify-center items-center gap-2 mb-8">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        <!-- Input Area -->
+        <div class="relative mb-5">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
                 </svg>
-                Cari
-            </button>
+            </div>
+            <input type="text" id="mid-input" 
+                class="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 text-gray-700 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-lg placeholder-gray-400 bg-white"
+                placeholder="Contoh: 80888" autocomplete="off">
+        </div>
 
-            <!-- Riwayat -->
-            <div class="mt-auto text-center mb-2">
-                <p class="text-[11px] font-bold text-gray-400 tracking-widest mb-4">RIWAYAT:</p>
-                <div id="history-container" class="flex flex-wrap justify-center gap-2.5">
-                    <!-- Riwayat akan di-render di sini oleh JavaScript -->
+        <!-- Tombol Cari -->
+        <button id="btn-search" class="w-full btn-gradient text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex justify-center items-center gap-2 mb-8">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            Cari
+        </button>
+
+        <!-- Riwayat -->
+        <div id="history-section" class="text-center mb-2 fade-in">
+            <p class="text-[11px] font-bold text-gray-400 tracking-widest mb-4">RIWAYAT:</p>
+            <div id="history-container" class="flex flex-wrap justify-center gap-2.5">
+                <!-- Riwayat via JS -->
+            </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- AREA DINAMIS (MUNCUL DI BAWAH)             -->
+        <!-- ========================================== -->
+        
+        <!-- Garis Pemisah (Disembunyikan secara default) -->
+        <hr id="divider" class="hidden border-gray-200 my-8">
+
+        <!-- 1. LOADING -->
+        <div id="view-loading" class="hidden flex-col items-center justify-center py-10 fade-in">
+            <div class="w-12 h-12 border-4 border-blue-100 border-t-[#1e3a8a] rounded-full animate-spin mb-4"></div>
+            <p class="text-[#1e3a8a] font-semibold animate-pulse text-sm">Mencari Data MID...</p>
+        </div>
+
+        <!-- 2. HASIL PENCARIAN -->
+        <div id="view-result" class="hidden flex-col w-full fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <p class="text-xs text-gray-500 font-medium mb-1">Hasil untuk MID:</p>
+                    <h2 id="res-mid" class="text-3xl font-black text-[#1e3a8a] leading-none"></h2>
                 </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- HALAMAN LOADING                            -->
-        <!-- ========================================== -->
-        <div id="view-loading" class="hidden w-full flex-col items-center justify-center h-full absolute inset-0 bg-white/95 backdrop-blur-sm z-20">
-            <div class="w-16 h-16 border-4 border-blue-100 border-t-[#1e3a8a] rounded-full animate-spin mb-4"></div>
-            <p class="text-[#1e3a8a] font-semibold animate-pulse">Mencari Data MID...</p>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- HALAMAN HASIL DETAIL                       -->
-        <!-- ========================================== -->
-        <div id="view-result" class="hidden w-full flex-col h-full bg-white absolute inset-0 z-10">
-            
-            <!-- Sticky Header -->
-            <div class="pt-6 pb-4 px-6 bg-white border-b border-gray-100 sticky top-0 z-30 shadow-sm">
-                <button id="btn-back" class="flex items-center text-gray-500 hover:text-[#1e3a8a] font-semibold mb-4 transition-colors w-fit">
-                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    Kembali
-                </button>
-
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-gray-500 font-medium">Hasil untuk MID:</p>
-                        <h2 id="res-mid" class="text-2xl font-black text-[#1e3a8a] leading-none">80888</h2>
-                    </div>
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-green-100 text-green-700 text-xs font-bold border border-green-200">
-                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                        PASSED
-                    </span>
-                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-100 text-green-700 text-xs font-bold border border-green-200">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    PASSED
+                </span>
             </div>
 
-            <!-- Area Hasil (Bisa Scroll jika data lebih dari 1) -->
-            <div id="res-container" class="flex-1 overflow-y-auto custom-scroll p-6 bg-gray-50/50 space-y-6">
-                <!-- Data hasil pencarian akan di-inject ke sini -->
+            <!-- Kontainer Cards (Akan bertambah sesuai jumlah hasil) -->
+            <div id="res-container" class="space-y-6 w-full">
+                <!-- Konten di-inject JS -->
             </div>
             
-        </div>
-
-        <!-- ========================================== -->
-        <!-- HALAMAN ERROR / TIDAK DITEMUKAN            -->
-        <!-- ========================================== -->
-        <div id="view-error" class="hidden w-full flex-col h-full bg-white absolute inset-0 p-8 items-center justify-center text-center z-10">
-            <div class="w-24 h-24 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-6">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Data Tidak Ditemukan</h2>
-            <p class="text-gray-500 mb-8">Kode MID <strong id="err-mid" class="text-gray-800"></strong> tidak terdapat dalam sistem.</p>
-            
-            <button id="btn-back-error" class="btn-gradient text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:opacity-90 transition w-full max-w-[200px]">
-                Coba Lagi
+            <button id="btn-clear" class="mt-8 w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-3 rounded-xl transition-colors">
+                Tutup Hasil & Cari Lain
             </button>
+        </div>
+
+        <!-- 3. ERROR / TIDAK DITEMUKAN -->
+        <div id="view-error" class="hidden flex-col items-center justify-center py-8 text-center fade-in">
+            <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-4">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <h2 class="text-xl font-bold text-gray-800 mb-2">Data Tidak Ditemukan</h2>
+            <p class="text-gray-500 text-sm mb-6">Kode MID <strong id="err-mid" class="text-gray-800"></strong> tidak terdapat dalam sistem.</p>
         </div>
 
     </div>
@@ -171,58 +149,61 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- LOGIKA JAVASCRIPT APLIKASI                 -->
+    <!-- LOGIKA JAVASCRIPT                          -->
     <!-- ========================================== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- Konfigurasi ---
+            // Konfigurasi
             const CONFIG = {
-                jsonPath: './deskripsi.json', // Path ke file deskripsi.json
-                imageFolder: './images/',     // Path ke folder images
-                maxHistory: 4                 // Maksimal riwayat yang ditampilkan
+                jsonPath: './deskripsi.json', // Pastikan posisinya sejajar di Github
+                imageFolder: './images/',
+                maxHistory: 4
             };
 
-            // --- State Management ---
-            const state = {
-                // Ambil history dari LocalStorage, jika kosong beri contoh default
-                history: JSON.parse(localStorage.getItem('midHistory')) || ['1061171', '62626', '61862', '80888'],
-                allData: null // Cache untuk menyimpan data JSON setelah diload sekali
-            };
+            // State Cache
+            let allDataCache = null;
+            let historyData = ['1061171', '62626', '61862', '80888']; // Default fallback
 
-            // --- Elemen DOM ---
+            // Mencoba load history dengan aman
+            try {
+                const stored = localStorage.getItem('midHistory_v2');
+                if (stored) historyData = JSON.parse(stored);
+            } catch (e) {
+                console.warn("Gagal membaca history:", e);
+            }
+
+            // Elemen DOM
             const el = {
-                viewSearch: document.getElementById('view-search'),
+                input: document.getElementById('mid-input'),
+                btnSearch: document.getElementById('btn-search'),
+                btnClear: document.getElementById('btn-clear'),
+                
+                historySection: document.getElementById('history-section'),
+                historyContainer: document.getElementById('history-container'),
+                divider: document.getElementById('divider'),
+                
                 viewLoading: document.getElementById('view-loading'),
                 viewResult: document.getElementById('view-result'),
                 viewError: document.getElementById('view-error'),
                 
-                input: document.getElementById('mid-input'),
-                btnSearch: document.getElementById('btn-search'),
-                historyContainer: document.getElementById('history-container'),
-                toast: document.getElementById('toast'),
-                
-                // Result Elements
-                btnBack: document.getElementById('btn-back'),
-                btnBackError: document.getElementById('btn-back-error'),
                 resMid: document.getElementById('res-mid'),
                 resContainer: document.getElementById('res-container'),
-                errMid: document.getElementById('err-mid')
+                errMid: document.getElementById('err-mid'),
+                toast: document.getElementById('toast')
             };
 
-            // --- Inisialisasi ---
+            // Inisialisasi Riwayat
             renderHistory();
 
-            // --- Event Listeners ---
+            // Event Listeners
             el.btnSearch.addEventListener('click', () => handleSearch());
             el.input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') handleSearch();
             });
-            el.btnBack.addEventListener('click', showSearchPage);
-            el.btnBackError.addEventListener('click', showSearchPage);
+            el.btnClear.addEventListener('click', resetView);
 
-
-            // --- Core Functions ---
+            // --- FUNGSI UI --- //
 
             function showToast(message) {
                 el.toast.textContent = message;
@@ -234,41 +215,75 @@
                 }, 3000);
             }
 
-            function switchView(viewToShow) {
-                // Sembunyikan semua
-                [el.viewSearch, el.viewResult, el.viewError].forEach(v => {
-                    v.classList.add('hidden');
-                    v.classList.remove('page-enter');
-                });
+            // Fungsi untuk mereset bagian bawah
+            function resetView() {
+                el.input.value = '';
+                el.divider.classList.add('hidden');
+                el.viewLoading.classList.add('hidden');
+                el.viewLoading.classList.remove('flex');
                 
-                // Tampilkan yang diminta dengan animasi
-                viewToShow.classList.remove('hidden');
-                viewToShow.classList.add('page-enter');
+                el.viewResult.classList.add('hidden');
+                el.viewResult.classList.remove('flex');
+                
+                el.viewError.classList.add('hidden');
+                el.viewError.classList.remove('flex');
+                
+                el.historySection.classList.remove('hidden');
+                el.input.focus();
+                
+                // Scroll kembali ke atas perlahan
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            function showSearchPage() {
-                el.input.value = '';
-                renderHistory();
-                switchView(el.viewSearch);
+            // Fungsi untuk mengatur elemen mana yang tampil di bagian bawah
+            function showState(stateName) {
+                // Sembunyikan semua konten dinamis dulu
+                el.viewLoading.classList.add('hidden');
+                el.viewLoading.classList.remove('flex');
+                el.viewResult.classList.add('hidden');
+                el.viewResult.classList.remove('flex');
+                el.viewError.classList.add('hidden');
+                el.viewError.classList.remove('flex');
+
+                el.divider.classList.remove('hidden'); // Selalu tampilkan garis jika ada aksi
+                
+                // Sembunyikan history agar tampilan lebih bersih saat ada hasil
+                if(stateName === 'loading') {
+                    // Biarkan history saat loading
+                } else {
+                    el.historySection.classList.add('hidden'); 
+                }
+
+                if (stateName === 'loading') {
+                    el.viewLoading.classList.remove('hidden');
+                    el.viewLoading.classList.add('flex');
+                } else if (stateName === 'result') {
+                    el.viewResult.classList.remove('hidden');
+                    el.viewResult.classList.add('flex');
+                } else if (stateName === 'error') {
+                    el.viewError.classList.remove('hidden');
+                    el.viewError.classList.add('flex');
+                }
             }
+
+            // --- FUNGSI DATA --- //
 
             async function fetchData() {
-                // Jika sudah ada di cache, langsung kembalikan
-                if (state.allData) return state.allData;
-
+                if (allDataCache) return allDataCache;
                 try {
-                    const response = await fetch(CONFIG.jsonPath);
-                    if (!response.ok) throw new Error('Gagal memuat deskripsi.json');
-                    const data = await response.json();
+                    // Tambahkan parameter time agar Github Pages tidak nge-cache JSON lama
+                    const url = `${CONFIG.jsonPath}?t=${new Date().getTime()}`;
+                    const response = await fetch(url);
                     
-                    // Simpan ke cache
-                    state.allData = data.records || []; 
-                    return state.allData;
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                    
+                    const data = await response.json();
+                    allDataCache = data.records || []; 
+                    return allDataCache;
                 } catch (error) {
-                    console.error("Error fetching data:", error);
-                    // Fallback ke mock data jika fetch error (misal buka file:// tanpa server)
-                    const mock = getMockData();
-                    return mock.records;
+                    console.error("Fetch Data Gagal:", error);
+                    // Fallback ke data minimum jika di github error
+                    return getFallbackData();
                 }
             }
 
@@ -281,75 +296,71 @@
                     return;
                 }
 
-                // Tampilkan Loading
-                el.viewLoading.classList.remove('hidden');
-                el.viewLoading.classList.add('flex');
+                // Tutup keyboard di HP saat mencari
+                el.input.blur();
+
+                // 1. Tampilkan status Loading
+                showState('loading');
+                
+                // Scroll ke area loading
+                el.viewLoading.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
                 try {
+                    // 2. Ambil data
                     const records = await fetchData();
                     
-                    // Simulasi delay sedikit agar loading tidak berkedip instan
-                    await new Promise(r => setTimeout(r, 600));
+                    // Delay buatan 500ms agar user melihat transisi loading
+                    await new Promise(r => setTimeout(r, 500));
 
-                    // Filter array JSON untuk mencari mid yang sesuai
-                    // Bisa menghasilkan lebih dari 1 jika ada duplikat ID di JSON
+                    // 3. Cari Data
                     const matches = records.filter(record => record.mid === mid);
 
                     if (matches.length > 0) {
-                        // Data ditemukan
                         renderResult(mid, matches);
                         saveHistory(mid);
-                        switchView(el.viewResult);
+                        renderHistory(); // Update history UI
+                        showState('result');
                     } else {
-                        // Data tidak ditemukan
                         el.errMid.textContent = mid;
-                        switchView(el.viewError);
+                        showState('error');
                     }
 
                 } catch (error) {
-                    console.error("Proses pencarian error:", error);
+                    console.error("Terjadi error sistem:", error);
                     el.errMid.textContent = mid;
-                    switchView(el.viewError);
-                } finally {
-                    // Sembunyikan Loading
-                    el.viewLoading.classList.add('hidden');
-                    el.viewLoading.classList.remove('flex');
+                    showState('error');
                 }
             }
 
             function renderResult(mid, matches) {
                 el.resMid.textContent = mid;
-                el.resContainer.innerHTML = ''; // Bersihkan kontainer hasil lama
+                el.resContainer.innerHTML = ''; 
                 
-                // SVG Fallback untuk gambar yang tidak ada/rusak
                 const fallbackImg = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2JkNWUxIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMiIgcnk9IjIiPjwvcmVjdD48Y2lyY2xlIGN4PSI4LjUiIGN5PSI4LjUiIHI9IjEuNSI+PC9jaXJjbGU+PHBvbHlsaW5lIHBvaW50cz0iMjEgMTUgMTYgMTAgNSAyMSI+PC9wb2x5bGluZT48L3N2Zz4=";
 
-                matches.forEach((item, index) => {
+                matches.forEach((item) => {
                     const imgSrc = item.img ? `${CONFIG.imageFolder}${item.img}` : fallbackImg;
                     
                     const cardHtml = `
-                        <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden animate-[fadeIn_0.5s_ease-out_${index * 0.1}s_both]">
+                        <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
                             <!-- Image Box -->
-                            <div class="w-full aspect-square bg-gray-50 relative border-b border-gray-100">
-                                <img src="${imgSrc}" alt="${item.deskripsi || 'Gambar Unit'}" 
-                                     class="w-full h-full object-contain p-4 z-10 relative"
+                            <div class="w-full h-[300px] bg-gray-50 relative border-b border-gray-100 flex items-center justify-center p-4">
+                                <img src="${imgSrc}" alt="${item.deskripsi || 'Gambar'}" 
+                                     class="max-w-full max-h-full object-contain z-10 relative rounded-lg"
                                      onerror="this.onerror=null; this.src='${fallbackImg}';">
-                                <div class="absolute inset-0 flex items-center justify-center text-gray-300 z-0">
-                                    <svg class="w-10 h-10 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                </div>
                             </div>
                             
                             <!-- Detail Specs -->
-                            <div class="p-5 space-y-3">
-                                <div class="bg-blue-50/50 p-3.5 rounded-xl border border-blue-100/50">
-                                    <span class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1 block">Deskripsi / Nama Produk</span>
-                                    <span class="text-gray-800 font-semibold text-[15px] leading-tight">${item.deskripsi || '-'}</span>
+                            <div class="p-5 space-y-4">
+                                <div class="bg-blue-50/60 p-4 rounded-xl border border-blue-100/50">
+                                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest mb-1 block">Deskripsi / Nama Produk</span>
+                                    <span class="text-gray-800 font-bold text-base">${item.deskripsi || '-'}</span>
                                 </div>
-                                <div class="bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                                     <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">No. TDK</span>
-                                    <span class="text-gray-700 font-medium text-sm">${item.tdk || '-'}</span>
+                                    <span class="text-gray-700 font-semibold text-sm">${item.tdk || '-'}</span>
                                 </div>
-                                <div class="bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                                     <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 block">Notasi / Keterangan</span>
                                     <span class="text-gray-600 font-medium text-sm leading-relaxed">${item.notasi || '-'}</span>
                                 </div>
@@ -361,342 +372,24 @@
             }
 
             function saveHistory(mid) {
-                // Hapus jika sudah ada agar naik ke urutan pertama
-                state.history = state.history.filter(item => item !== mid);
-                // Tambah di awal
-                state.history.unshift(mid);
-                // Batasi jumlah
-                if (state.history.length > CONFIG.maxHistory) {
-                    state.history.pop();
-                }
-                 border-radius: 40px;
-        }
-        .logo-text { color: #1e3a8a; }
-        .logo-bg { background-color: #1e3a8a; }
-        .btn-gradient { background: linear-gradient(90deg, #2b499b 0%, #3b82f6 100%); }
-        .history-pill {
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-    </style>
-</head>
-<body class="flex items-center justify-center p-4 antialiased">
-
-    <!-- Container Utama -->
-    <div id="app-container" class="glass-card w-full max-w-[420px] min-h-[750px] relative overflow-hidden flex flex-col p-8 border border-white/50">
-        
-        <!-- ========================================== -->
-        <!-- HALAMAN AWAL (PENCARIAN)                   -->
-        <!-- ========================================== -->
-        <div id="view-search" class="w-full flex flex-col h-full page-enter">
-            
-            <!-- Logo Area -->
-            <div class="flex flex-col items-center mt-8 mb-12">
-                <div class="w-24 h-2 bg-[#1e3a8a] mb-2 rounded-sm"></div>
-                <h1 class="text-6xl font-black logo-text tracking-tighter leading-none mb-1">MIM</h1>
-                <div class="logo-bg text-white text-[9px] font-bold tracking-[0.25em] px-4 py-1.5 rounded-sm">
-                    MANUFACTURING
-                </div>
-            </div>
-
-            <!-- Header Text -->
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-extrabold text-[#1a265a] mb-3 tracking-tight">QUALITY PASSED</h2>
-                <p class="text-gray-500 text-sm font-medium leading-relaxed px-2">
-                    Masukkan kode MID untuk mengakses detail spesifikasi dan gambar unit
-                </p>
-            </div>
-
-            <!-- Input Area -->
-            <div class="relative mb-5">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <!-- Icon Box -->
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-                    </svg>
-                </div>
-                <input type="text" id="mid-input" 
-                    class="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 text-gray-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-lg placeholder-gray-400"
-                    placeholder="Contoh: 80888" autocomplete="off">
-            </div>
-
-            <!-- Tombol Cari -->
-            <button id="btn-search" class="w-full btn-gradient text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex justify-center items-center gap-2 mb-10">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                Cari
-            </button>
-
-            <!-- Riwayat -->
-            <div class="mt-auto text-center mb-6">
-                <p class="text-[11px] font-bold text-gray-400 tracking-widest mb-4">RIWAYAT:</p>
-                <div id="history-container" class="flex flex-wrap justify-center gap-2.5">
-                    <!-- Riwayat akan di-render di sini oleh JavaScript -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- HALAMAN LOADING                            -->
-        <!-- ========================================== -->
-        <div id="view-loading" class="hidden w-full flex-col items-center justify-center h-full absolute inset-0 bg-white/90 backdrop-blur-sm z-10">
-            <div class="w-16 h-16 border-4 border-blue-200 border-t-[#1e3a8a] rounded-full animate-spin mb-4"></div>
-            <p class="text-[#1e3a8a] font-semibold animate-pulse">Mencari Data MID...</p>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- HALAMAN HASIL DETAIL                       -->
-        <!-- ========================================== -->
-        <div id="view-result" class="hidden w-full flex-col h-full bg-white absolute inset-0 p-6 overflow-y-auto">
-            
-            <button id="btn-back" class="flex items-center text-gray-500 hover:text-[#1e3a8a] font-semibold mb-6 transition-colors w-fit">
-                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                Kembali
-            </button>
-
-            <div class="bg-gray-50 rounded-2xl p-4 mb-6 text-center border border-gray-100">
-                <p class="text-sm text-gray-500 font-medium">Hasil Pencarian MID</p>
-                <h2 id="res-mid" class="text-3xl font-black text-[#1e3a8a]">80888</h2>
-            </div>
-
-            <!-- Container Gambar -->
-            <div class="w-full aspect-square bg-gray-100 rounded-2xl overflow-hidden mb-6 relative border border-gray-200 shadow-sm">
-                <img id="res-image" src="" alt="Unit Image" class="w-full h-full object-cover z-10 relative" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2JkNWUxIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMiIgcnk9IjIiPjwvcmVjdD48Y2lyY2xlIGN4PSI4LjUiIGN5PSI4LjUiIHI9IjEuNSI+PC9jaXJjbGU+PHBvbHlsaW5lIHBvaW50cz0iMjEgMTUgMTYgMTAgNSAyMSI+PC9wb2x5bGluZT48L3N2Zz4=';">
+                historyData = historyData.filter(item => item !== mid);
+                historyData.unshift(mid);
+                if (historyData.length > CONFIG.maxHistory) historyData.pop();
                 
-                <!-- Fallback jika gambar error diatur via CSS/JS -->
-                <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 z-0">
-                    <p class="text-xs font-medium mt-2">Memuat gambar...</p>
-                </div>
-            </div>
-
-            <!-- Detail dari JSON -->
-            <div class="space-y-4">
-                <h3 class="text-xl font-bold text-gray-800 border-b pb-2">Spesifikasi Unit</h3>
-                
-                <div id="res-details" class="space-y-3">
-                    <!-- Data JSON akan di-render di sini -->
-                </div>
-            </div>
-            
-            <div class="mt-8 mb-4 text-center">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                    QUALITY PASSED
-                </span>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- HALAMAN ERROR / TIDAK DITEMUKAN            -->
-        <!-- ========================================== -->
-        <div id="view-error" class="hidden w-full flex-col h-full bg-white absolute inset-0 p-8 items-center justify-center text-center">
-            <div class="w-24 h-24 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-6">
-                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Data Tidak Ditemukan</h2>
-            <p class="text-gray-500 mb-8">Kode MID <strong id="err-mid" class="text-gray-800"></strong> tidak terdapat dalam database (deskripsi.json).</p>
-            
-            <button id="btn-back-error" class="btn-gradient text-white font-bold py-3 px-8 rounded-xl shadow-lg hover:opacity-90 transition">
-                Coba Lagi
-            </button>
-        </div>
-
-    </div>
-
-    <!-- Alert / Toast -->
-    <div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-xl transition-all duration-300 opacity-0 pointer-events-none z-50">
-        Masukkan kode MID terlebih dahulu!
-    </div>
-
-    <!-- ========================================== -->
-    <!-- LOGIKA JAVASCRIPT APLIKASI                 -->
-    <!-- ========================================== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- Konfigurasi ---
-            const CONFIG = {
-                jsonPath: './deskripsi.json', // Path ke file deskripsi.json
-                imageFolder: './images/',     // Path ke folder images
-                maxHistory: 4                 // Maksimal riwayat yang ditampilkan
-            };
-
-            // --- State Management ---
-            const state = {
-                history: JSON.parse(localStorage.getItem('midHistory')) || ['1061171', '62626', '61862', '80888'], // Default mock history jika kosong
-                currentMid: null
-            };
-
-            // --- Elemen DOM ---
-            const el = {
-                viewSearch: document.getElementById('view-search'),
-                viewLoading: document.getElementById('view-loading'),
-                viewResult: document.getElementById('view-result'),
-                viewError: document.getElementById('view-error'),
-                
-                input: document.getElementById('mid-input'),
-                btnSearch: document.getElementById('btn-search'),
-                historyContainer: document.getElementById('history-container'),
-                toast: document.getElementById('toast'),
-                
-                // Result Elements
-                btnBack: document.getElementById('btn-back'),
-                btnBackError: document.getElementById('btn-back-error'),
-                resMid: document.getElementById('res-mid'),
-                resImage: document.getElementById('res-image'),
-                resDetails: document.getElementById('res-details'),
-                errMid: document.getElementById('err-mid')
-            };
-
-            // --- Inisialisasi ---
-            renderHistory();
-
-            // --- Event Listeners ---
-            el.btnSearch.addEventListener('click', handleSearch);
-            el.input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') handleSearch();
-            });
-            el.btnBack.addEventListener('click', showSearchPage);
-            el.btnBackError.addEventListener('click', showSearchPage);
-
-
-            // --- Core Functions ---
-
-            function showToast(message) {
-                el.toast.textContent = message;
-                el.toast.classList.remove('opacity-0', 'pointer-events-none');
-                el.toast.classList.add('opacity-100');
-                setTimeout(() => {
-                    el.toast.classList.remove('opacity-100');
-                    el.toast.classList.add('opacity-0', 'pointer-events-none');
-                }, 3000);
-            }
-
-            function switchView(viewToShow) {
-                // Sembunyikan semua
-                [el.viewSearch, el.viewResult, el.viewError].forEach(v => {
-                    v.classList.add('hidden');
-                    v.classList.remove('page-enter');
-                });
-                
-                // Tampilkan yang diminta dengan animasi
-                viewToShow.classList.remove('hidden');
-                viewToShow.classList.add('page-enter');
-            }
-
-            function showSearchPage() {
-                el.input.value = '';
-                renderHistory();
-                switchView(el.viewSearch);
-            }
-
-            async function handleSearch(overrideMid = null) {
-                const mid = overrideMid || el.input.value.trim();
-                
-                if (!mid) {
-                    showToast('Silakan masukkan kode MID');
-                    el.input.focus();
-                    return;
-                }
-
-                // Tampilkan Loading
-                el.viewLoading.classList.remove('hidden');
-                el.viewLoading.classList.add('flex');
-
                 try {
-                    // Coba fetch dari file JSON lokal
-                    const response = await fetch(CONFIG.jsonPath);
-                    let data = {};
-                    
-                    if (response.ok) {
-                        data = await response.json();
-                    } else {
-                        // Jika gagal fetch (misal jalan di file:// tanpa server), 
-                        // kita buat MOCK DATA untuk keperluan demonstrasi
-                        console.warn("Gagal load deskripsi.json. Menggunakan data simulasi (Mock Data).");
-                        data = getMockData();
-                    }
-
-                    // Simulasi delay jaringan agar animasi loading terlihat natural (500ms)
-                    await new Promise(r => setTimeout(r, 500));
-
-                    const unitData = data[mid];
-
-                    if (unitData) {
-                        // Data ditemukan
-                        renderResult(mid, unitData);
-                        saveHistory(mid);
-                        switchView(el.viewResult);
-                    } else {
-                        // Data tidak ditemukan
-                        el.errMid.textContent = mid;
-                        switchView(el.viewError);
-                    }
-
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                    // Fallback ke mock data jika fetch error total (CORS dll)
-                    const mockData = getMockData();
-                    if(mockData[mid]) {
-                        renderResult(mid, mockData[mid]);
-                        saveHistory(mid);
-                        switchView(el.viewResult);
-                    } else {
-                        el.errMid.textContent = mid;
-                        switchView(el.viewError);
-                    }
-                } finally {
-                    // Sembunyikan Loading
-                    el.viewLoading.classList.add('hidden');
-                    el.viewLoading.classList.remove('flex');
-                }
-            }
-
-            function renderResult(mid, data) {
-                el.resMid.textContent = mid;
-                
-                // Set sumber gambar ke folder images. 
-                // Asumsi format .jpg. Anda bisa mengubah ke .png jika diperlukan.
-                el.resImage.src = `${CONFIG.imageFolder}${mid}.jpg`;
-                
-                // Render detail spesifikasi dari JSON
-                el.resDetails.innerHTML = '';
-                for (const [key, value] of Object.entries(data)) {
-                    const title = key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
-                    
-                    const itemHtml = `
-                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex flex-col">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${title}</span>
-                            <span class="text-gray-800 font-medium">${value}</span>
-                        </div>
-                    `;
-                    el.resDetails.insertAdjacentHTML('beforeend', itemHtml);
-                }
-            }
-
-            function saveHistory(mid) {
-                // Hapus jika sudah ada agar naik ke urutan pertama
-                state.history = state.history.filter(item => item !== mid);
-                // Tambah di awal
-                state.history.unshift(mid);
-                // Batasi jumlah
-                if (state.history.length > CONFIG.maxHistory) {
-                    state.history.pop();
-                }
-                // Simpan ke local storage
-                localStorage.setItem('midHistory', JSON.stringify(state.history));
+                    localStorage.setItem('midHistory_v2', JSON.stringify(historyData));
+                } catch (e) { console.warn("Local storage full/blocked"); }
             }
 
             function renderHistory() {
                 el.historyContainer.innerHTML = '';
                 
-                if (state.history.length === 0) {
+                if (historyData.length === 0) {
                     el.historyContainer.innerHTML = '<span class="text-sm text-gray-400">Belum ada riwayat</span>';
                     return;
                 }
 
-                state.history.forEach(mid => {
+                historyData.forEach(mid => {
                     const btn = document.createElement('button');
                     btn.className = 'history-pill bg-white text-gray-600 font-semibold px-5 py-2 rounded-full text-sm hover:bg-gray-50 hover:text-blue-600 transition-colors shadow-sm';
                     btn.textContent = mid;
@@ -708,311 +401,18 @@
                 });
             }
 
-            // --- Fungsi Simulasi Data (Jika file JSON tidak ditemukan/CORS) ---
-            function getMockData() {
-                return {
-                    "80888": {
-                        "nama_produk": "Mesin Kompresor X1",
-                        "tanggal_inspeksi": "24 Okt 2023",
-                        "operator": "Ahmad Fauzi",
-                        "keterangan": "Semua part berfungsi normal. Tidak ada kebocoran."
-                    },
-                    "62626": {
-                        "nama_produk": "Dinamo Motor 200W",
-                        "tanggal_inspeksi": "20 Okt 2023",
-                        "operator": "Budi Santoso",
-                        "keterangan": "Lulus tes putaran maksimal."
-                    },
-                    "1061171": {
-                        "nama_produk": "Panel Kontrol Utama",
-                        "tanggal_inspeksi": "15 Okt 2023",
-                        "operator": "Siti Aminah",
-                        "keterangan": "Kelistrikan stabil, indikator menyala semua."
-                    },
-                     "61862": {
-                        "nama_produk": "Roda Gigi Hidrolik",
-                        "tanggal_inspeksi": "10 Okt 2023",
-          center gap-2">
-                        <input type="checkbox" id="setting-force-extension" class="rounded border-gray-300 text-[#1a337e] focus:ring-[#1a337e]">
-                        <span class="text-xs text-gray-600">Paksa ekstensi selalu menggunakan .png</span>
-                    </div>
-                </div>
-
-                <div class="pt-2 border-t border-gray-100">
-                    <button onclick="savePathSettings()" class="w-full bg-[#1a337e] hover:bg-[#12245a] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">
-                        Simpan & Terapkan
-                    </button>
-                    <button onclick="resetPathSettings()" class="w-full border border-gray-200 hover:bg-gray-50 text-gray-500 text-xs font-semibold py-2.5 rounded-lg mt-2 transition-colors">
-                        Kembalikan Default
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL GAMBAR FULLSCREEN -->
-    <div id="image-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center p-4 bg-black/80 transition-opacity opacity-0">
-        <div class="relative w-full max-w-2xl bg-white rounded-2xl p-2 shadow-2xl transform scale-95 transition-transform" id="modal-content">
-            <button onclick="closeModal()" class="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <img id="modal-image" src="" class="w-full rounded-xl max-h-[85vh] object-contain" alt="Full Image">
-        </div>
-    </div>
-
-    <script>
-        // State Konfigurasi Path Gambar
-        let config = {
-            folderPath: localStorage.getItem('mim_folderPath') || 'image/',
-            forceExtension: localStorage.getItem('mim_forceExtension') !== 'false' // default true
-        };
-
-        let searchHistory = [];
-        let currentRecord = null; // Menyimpan data record aktif saat ini
-        let fallbackAttempt = 0; // Melacak seberapa banyak percobaan pemuatan gambar
-
-        function getImagePath(record, searchInput, attempt) {
-            // Safety guard to prevent crash if record is null
-            if (!record) return null;
-            
-            let fileName = record.img || `${searchInput}`;
-            
-            // Konfigurasi paksa ekstensi .png
-            if (config.forceExtension) {
-                if (!fileName.toLowerCase().endsWith('.png')) {
-                    // hapus ekstensi lama jika ada, paksa menjadi .png
-                    fileName = fileName.replace(/\.[^/.]+$/, "") + ".png";
-                }
+            // Data darurat jika fetch Github JSON terblokir
+            function getFallbackData() {
+                return [
+                    { "mid": "80888", "deskripsi": "SKL Sachet 22 g 12+1", "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun", "tdk": "TDK/R&D/PAC/12/0", "img": "TDK_R_D_PAC_12_0.png" },
+                    { "mid": "62626", "deskripsi": "Sosoft Twinpack Sachet 80 ml 3+1", "notasi": "9 kardus x 5 tier = 45 dus Maximum Stacking 2 pallet Shelf life 2 tahun 1/2", "tdk": "TDK/R&D/PAC/12/0", "img": "TDK_R_D_PAC_12_0_7.png" },
+                    { "mid": "61862", "deskripsi": "SKL Sachet 22 g 12+1", "notasi": "22 Dus x 5 Tier = 110 Dus Maximum Stacking 2 Palet Shelf life 2 tahun", "tdk": "TDK/R&D/PAC/12/0", "img": "TDK_R_D_PAC_12_0.png" },
+                    { "mid": "1061171", "deskripsi": "EDW 675 gr", "notasi": "10 Box x 5 tier = 50 Box Maximum Stacking 2 Palet Shelf life 2 Tahun", "tdk": "TDK/R&D/PAC/07/052", "img": "TDK_R_D_PAC_07_052.png" },
+                    { "mid": "1061171", "deskripsi": "EDW 650 ml", "notasi": "10 dus x 5 tier = 50 dus Maximum Stacking 2 Pallet Shelf life 2 Tahun 1/2", "tdk": "TDK/R&D/PAC/07/052", "img": "TDK_R_D_PAC_07_052_2.png" }
+                ];
             }
 
-            // Normalisasi folder path (pastikan diakhiri dengan /)
-            let baseDir = config.folderPath;
-            if (baseDir && !baseDir.endsWith('/')) {
-                baseDir += '/';
-            }
-
-            // Variasi fallback path untuk melompati proteksi folder lokal dan perbedaan server
-            if (attempt === 0) {
-                // Percobaan 1: Menggunakan path dasar kustom user (misal: image/filename.png)
-                return `${baseDir}${fileName}`;
-            } else if (attempt === 1) {
-                // Percobaan 2: Relatif penuh eksplisit (./image/filename.png)
-                return `./${baseDir}${fileName}`;
-            } else if (attempt === 2) {
-                // Percobaan 3: Menggunakan format absolut web root (/image/filename.png)
-                return `/${baseDir}${fileName}`;
-            } else if (attempt === 3) {
-                // Percobaan 4: Jika folder diganti secara manual ke lowercase/uppercase
-                return `Image/${fileName}`;
-            } else {
-                // Gagal semua: berikan penanda untuk dialihkan ke placeholder
-                return null;
-            }
-        }
-
-        function showResult(data, searchInput) {
-            document.getElementById('res-id').innerText = data.mid || searchInput;
-            document.getElementById('res-name').innerText = data.deskripsi || '-';
-            document.getElementById('res-date').innerText = data.tdk || '-';
-            document.getElementById('res-desc').innerText = data.notasi || 'Keterangan tidak tersedia.';
-            
-            // Reset status muat gambar
-            fallbackAttempt = 0;
-            showImageLoader();
-
-            // Picu pemuatan gambar awal
-            triggerImageLoad(searchInput);
-
-            const resultSection = document.getElementById('result-section');
-            resultSection.classList.remove('hidden', 'fade-in');
-            void resultSection.offsetWidth;
-            resultSection.classList.add('fade-in');
-        }
-
-        function triggerImageLoad(searchInput) {
-            const imgEl = document.getElementById('res-image');
-            const modalImgEl = document.getElementById('modal-image');
-            
-            let resolvedUrl = getImagePath(currentRecord, searchInput, fallbackAttempt);
-            
-            if (resolvedUrl) {
-                console.log(`[Viewer TDK] Mencoba memuat gambar (Percobaan ${fallbackAttempt + 1}): ${resolvedUrl}`);
-                document.getElementById('debug-current-url').innerText = resolvedUrl;
-                imgEl.src = resolvedUrl;
-                modalImgEl.src = resolvedUrl;
-            } else {
-                // Seluruh alternatif fallback habis, tampilkan placeholder default
-                console.warn("[Viewer TDK] Seluruh path alternatif gagal dimuat. Menampilkan placeholder.");
-                document.getElementById('debug-current-url').innerText = "Gagal memuat seluruh variasi URL (404)";
-                imgEl.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia";
-                modalImgEl.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia";
-            }
-        }
-
-        function handleImageLoaded() {
-            hideImageLoader();
-            const imgEl = document.getElementById('res-image');
-            imgEl.classList.remove('opacity-0');
-        }
-
-        function handleImageError(image) {
-            // Safety guard: If no search has been made yet, ignore default empty src load failures
-            if (!currentRecord) return;
-
-            // Jika terjadi kegagalan pemuatan, otomatis naikkan tingkatan fallback
-            fallbackAttempt++;
-            const inputVal = document.getElementById('mid-input').value.trim();
-            
-            if (fallbackAttempt < 5) {
-                // Coba path cadangan berikutnya
-                triggerImageLoad(inputVal);
-            } else {
-                // Memang benar-benar tidak ditemukan gambarnya
-                image.onerror = null; 
-                image.src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia"; 
-                document.getElementById('modal-image').src = "https://placehold.co/800x600/f3f8fc/1a337e?text=Gambar+Tidak+Tersedia";
-                hideImageLoader();
-            }
-        }
-
-        function showImageLoader() {
-            document.getElementById('img-loader').classList.remove('hidden');
-            document.getElementById('res-image').classList.add('opacity-0');
-        }
-
-        function hideImageLoader() {
-            document.getElementById('img-loader').classList.add('hidden');
-        }
-
-        function hideResult() { document.getElementById('result-section').classList.add('hidden'); }
-        function showError(msg) {
-            const errorCard = document.getElementById('error-card');
-            document.getElementById('error-message').innerHTML = msg;
-            errorCard.classList.remove('hidden');
-        }
-        function hideError() { document.getElementById('error-card').classList.add('hidden'); }
-
-        function setLoading(isLoading) {
-            const btnIcon = document.getElementById('btn-icon');
-            const btnText = document.getElementById('btn-text');
-            const btn = document.getElementById('submit-btn');
-
-            if (isLoading) {
-                btn.disabled = true;
-                btn.classList.add('opacity-80', 'cursor-not-allowed');
-                btnIcon.className = "fa-solid fa-circle-notch fa-spin";
-                btnText.innerText = "Mencari...";
-            } else {
-                btn.disabled = false;
-                btn.classList.remove('opacity-80', 'cursor-not-allowed');
-                btnIcon.className = "fa-solid fa-magnifying-glass";
-                btnText.innerText = "Cari Unit";
-            }
-        }
-
-        function addToHistory(mid) {
-            searchHistory = [mid, ...searchHistory.filter(item => item !== mid)].slice(0, 4);
-            renderHistory();
-        }
-
-        function renderHistory() {
-            const historySec = document.getElementById('history-section');
-            const historyList = document.getElementById('history-list');
-            
-            if (searchHistory.length === 0) {
-                historySec.classList.add('hidden');
-                return;
-            }
-
-            historySec.classList.remove('hidden');
-            historyList.innerHTML = '';
-
-            searchHistory.forEach(mid => {
-                const chip = document.createElement('button');
-                chip.type = 'button';
-                chip.className = 'flex-shrink-0 bg-blue-50 text-[#1a337e] border border-blue-100 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors whitespace-nowrap';
-                chip.innerHTML = `<i class="fa-solid fa-clock-rotate-left mr-1 opacity-70"></i> ${mid}`;
-                chip.onclick = () => {
-                    document.getElementById('mid-input').value = mid;
-                    document.getElementById('submit-btn').click();
-                };
-                historyList.appendChild(chip);
-            });
-        }
-
-        // Modal Zoom Control
-        const modal = document.getElementById('image-modal');
-        const modalContent = document.getElementById('modal-content');
-
-        function openModal() {
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeModal() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
-
-        // Modal Settings Control
-        const settingsModal = document.getElementById('settings-modal');
-        const settingsContent = document.getElementById('settings-content');
-
-        function openSettingsModal() {
-            document.getElementById('setting-folder-path').value = config.folderPath;
-            document.getElementById('setting-force-extension').checked = config.forceExtension;
-
-            settingsModal.classList.remove('hidden');
-            setTimeout(() => {
-                settingsModal.classList.remove('opacity-0');
-                settingsContent.classList.remove('scale-95');
-                settingsContent.classList.add('scale-100');
-            }, 10);
-        }
-
-        function closeSettingsModal() {
-            settingsModal.classList.add('opacity-0');
-            settingsContent.classList.remove('scale-100');
-            settingsContent.classList.add('scale-95');
-            setTimeout(() => { settingsModal.classList.add('hidden'); }, 300);
-        }
-
-        function savePathSettings() {
-            const rawPath = document.getElementById('setting-folder-path').value.trim();
-            config.folderPath = rawPath || 'image/';
-            config.forceExtension = document.getElementById('setting-force-extension').checked;
-
-            localStorage.setItem('mim_folderPath', config.folderPath);
-            localStorage.setItem('mim_forceExtension', config.forceExtension);
-
-            closeSettingsModal();
-
-            // Jalankan pencarian ulang secara otomatis jika data sedang aktif ditampilkan
-            const activeInput = document.getElementById('mid-input').value.trim();
-            if (activeInput && currentRecord) {
-                showResult(currentRecord, activeInput);
-            }
-        }
-
-        function resetPathSettings() {
-            localStorage.removeItem('mim_folderPath');
-            localStorage.removeItem('mim_forceExtension');
-            config.folderPath = 'image/';
-            config.forceExtension = true;
-            
-            document.getElementById('setting-folder-path').value = 'image/';
-            document.getElementById('setting-force-extension').checked = true;
-            
-            savePathSettings();
-        }
+        });
     </script>
 </body>
 </html>
